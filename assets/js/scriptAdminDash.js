@@ -978,7 +978,9 @@ function toggleEditOtherSpecies() {
     }
 }
 
-// === GESTIÓN DE SOLICITUDES DE REINGRESO ===
+// === GESTIÓN DE RECHAZOS CON MOTIVO ===
+
+// Función actualizada para mostrar solicitudes de reingreso
 async function loadReturnRequests() {
     try {
         const response = await fetch('../api/adoption/get_return_requests.php', {
@@ -1007,19 +1009,147 @@ async function loadReturnRequests() {
                     </div>
                 </div>
                 <div style="background:#f8f9fa; padding:10px; border-radius:4px; margin:10px 0;">
-                    <strong>Motivo:</strong><br>
+                    <strong>Motivo del usuario:</strong><br>
                     <em style="word-wrap: break-word">${req.motivo_reingreso}</em>
                 </div>
+                ${req.observaciones_admin && req.estado === 'rechazada' ? `
+                    <div style="background:#ffebee; padding:12px; border-radius:6px; margin:10px 0; border-left:4px solid #dc3545;">
+                        <strong style="color:#c62828; display:flex; align-items:center; gap:5px; margin-bottom:5px;">
+                            ❌ Motivo del rechazo:
+                        </strong>
+                        <p style="color:#555; margin:0; line-height:1.4; word-wrap:break-word;">${req.observaciones_admin}</p>
+                    </div>
+                ` : ''}
                 ${req.estado === 'pendiente' ? `
                     <div style="text-align:right; margin-top:15px;">
-                        <button onclick="processReturn(${req.solicitud_id}, 'aprobar')" style="background:#28a745; color:white; padding:8px 15px; border:none; border-radius:4px; margin-right:10px; cursor:pointer;">✅ Aprobar</button>
-                        <button onclick="processReturn(${req.solicitud_id}, 'rechazar')" style="background:#dc3545; color:white; padding:8px 15px; border:none; border-radius:4px; cursor:pointer;">❌ Rechazar</button>
+                        <button onclick="approveReturnRequest(${req.solicitud_id})" style="background:#28a745; color:white; padding:8px 15px; border:none; border-radius:4px; margin-right:10px; cursor:pointer;">✅ Aprobar</button>
+                        <button onclick="openRejectionModal(${req.solicitud_id})" style="background:#dc3545; color:white; padding:8px 15px; border:none; border-radius:4px; cursor:pointer;">❌ Rechazar</button>
                     </div>` : ''}
             </div>
         `).join('');
     } catch (error) {
         console.error('Error:', error);
         document.getElementById('return-requests-list').innerHTML = '<p style="color:red;">Error al cargar solicitudes</p>';
+    }
+}
+
+// Función para aprobar directamente (sin modal)
+async function approveReturnRequest(solicitudId) {
+    if (!confirm('¿Estás seguro de aprobar esta solicitud de reingreso?')) return;
+    
+    try {
+        const response = await fetch(`../api/adoption/approve_return_request.php?id=${solicitudId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            body: JSON.stringify({ observaciones_admin: '' })
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+            showToast('Solicitud Aprobada', 'La solicitud de reingreso ha sido aprobada correctamente.', 'success', 4000);
+            loadReturnRequests();
+            if (typeof loadPets === 'function') loadPets();
+        } else {
+            showToast('Error', result.message, 'error', 4000);
+        }
+    } catch (error) {
+        showToast('Error', 'Error al procesar solicitud', 'error', 4000);
+    }
+}
+
+// Función para abrir el modal de rechazo
+function openRejectionModal(solicitudId) {
+    document.getElementById('rejection-solicitud-id').value = solicitudId;
+    document.getElementById('rejection-reason').value = '';
+    document.getElementById('rejection-modal').style.display = 'block';
+    
+    // Enfocar el textarea
+    setTimeout(() => {
+        document.getElementById('rejection-reason').focus();
+    }, 100);
+}
+
+// Función para cerrar el modal
+function closeRejectionModal() {
+    document.getElementById('rejection-modal').style.display = 'none';
+    document.getElementById('rejection-form').reset();
+}
+
+// Función para rechazar con motivo
+async function rejectReturnRequestWithReason(solicitudId, motivo) {
+    try {
+        const response = await fetch(`../api/adoption/reject_return_request.php?id=${solicitudId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            body: JSON.stringify({ 
+                observaciones_admin: motivo 
+            })
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+            showToast('Solicitud Rechazada', 'La solicitud ha sido rechazada y el usuario ha sido notificado.', 'info', 4000);
+            closeRejectionModal();
+            loadReturnRequests();
+        } else {
+            showToast('Error', result.message, 'error', 4000);
+        }
+    } catch (error) {
+        showToast('Error', 'Error al procesar solicitud', 'error', 4000);
+    }
+}
+
+// Event listener para el formulario de rechazo
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        const rejectionForm = document.getElementById('rejection-form');
+        if (rejectionForm) {
+            rejectionForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const solicitudId = document.getElementById('rejection-solicitud-id').value;
+                const motivo = document.getElementById('rejection-reason').value.trim();
+                
+                if (!motivo) {
+                    alert('Debes proporcionar un motivo para el rechazo');
+                    document.getElementById('rejection-reason').focus();
+                    return;
+                }
+                
+                if (motivo.length < 10) {
+                    alert('El motivo debe tener al menos 10 caracteres');
+                    document.getElementById('rejection-reason').focus();
+                    return;
+                }
+                
+                rejectReturnRequestWithReason(solicitudId, motivo);
+            });
+        }
+        
+        // Cerrar modal al hacer clic fuera
+        const modal = document.getElementById('rejection-modal');
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeRejectionModal();
+                }
+            });
+        }
+    }, 1000);
+});
+
+// Mantener compatibilidad con función anterior
+async function processReturn(solicitudId, action) {
+    if (action === 'aprobar') {
+        approveReturnRequest(solicitudId);
+    } else if (action === 'rechazar') {
+        openRejectionModal(solicitudId);
     }
 }
 

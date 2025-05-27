@@ -29,6 +29,8 @@
                         usuario</a></li>
                 <li><a href="#" onclick="showSection('adoption-request'); setActive(this)">Solicitar Adopción</a></li>
                 <li><a href="#" onclick="showSection('adopted-pets'); setActive(this)">Mis Mascotas Adoptadas</a></li>
+                <li><a href="#" onclick="showSection('user-return-requests'); setActive(this)">Mis Solicitudes de
+                        Reingreso</a></li>
                 <li><a href="#" onclick="location.href='index.html'">Pagina principal</a></li>
                 <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
             </ul>
@@ -146,7 +148,7 @@
 
                 <!-- Contenedor que se llenará dinámicamente -->
                 <div id="adopted-pets-container">
-                    
+
                 </div>
 
                 <!-- Modal para reingreso (ya mejorado anteriormente) -->
@@ -161,6 +163,7 @@
                             <select id="return-reason" required>
                                 <option value="">Selecciona un motivo</option>
                                 <option value="falta_espacio">Falta de espacio</option>
+                                <option value="fallecimiento">Fallecimiento</option>
                                 <option value="problemas_salud">Problemas de salud</option>
                                 <option value="cambio_familiar">Cambio familiar</option>
                                 <option value="otro">Otro</option>
@@ -180,6 +183,32 @@
                             </div>
                         </form>
                     </div>
+                </div>
+            </div>
+
+            <div id="user-return-requests" class="account-section">
+                <h2>Mis Solicitudes de Reingreso</h2>
+                <p style="color:#666; margin-bottom:20px;">
+                    Aquí puedes ver el estado de tus solicitudes de reingreso de mascotas adoptadas.
+                </p>
+
+                <div id="user-return-requests-container">
+                    <!-- Las solicitudes se cargarán dinámicamente aquí -->
+                </div>
+
+                <div
+                    style="background:#f8f9fa; padding:15px; border-radius:8px; margin-top:20px; border-left:4px solid #2196f3;">
+                    <h4 style="color:#1976d2; margin:0 0 10px 0;">ℹ️ Información importante</h4>
+                    <ul style="margin:0; padding-left:20px; color:#555;">
+                        <li><strong>Pendiente:</strong> Tu solicitud está siendo revisada por nuestro equipo.</li>
+                        <li><strong>Aprobada:</strong> La mascota ha sido reingresada al sistema. Debes pagar la multa
+                            correspondiente.</li>
+                        <li><strong>Rechazada:</strong> Tu solicitud no fue aprobada. Puedes ver el motivo específico
+                            arriba.</li>
+                    </ul>
+                    <p style="margin:15px 0 0 0; color:#666; font-size:14px;">
+                        Si tienes dudas sobre alguna decisión, puedes contactar a nuestro equipo de administración.
+                    </p>
                 </div>
             </div>
 

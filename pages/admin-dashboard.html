@@ -304,6 +304,52 @@
                 <div id="return-requests-list"></div>
             </div>
 
+            <!-- Modal para motivo de rechazo -->
+            <div id="rejection-modal"
+                style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6);">
+                <div
+                    style="background:white; margin:8% auto; padding:30px; border-radius:12px; width:90%; max-width:500px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+                    <span onclick="closeRejectionModal()"
+                        style="color:#999; float:right; font-size:28px; font-weight:bold; cursor:pointer;">&times;</span>
+
+                    <h3 style="color:#dc3545; margin-top:0; border-bottom: 2px solid #dc3545; padding-bottom: 10px;">
+                        ❌ Rechazar Solicitud de Reingreso
+                    </h3>
+
+                    <p style="color:#666; margin-bottom:20px;">
+                        Debes proporcionar un motivo por el cual rechazas esta solicitud. Este motivo será visible para
+                        el usuario.
+                    </p>
+
+                    <form id="rejection-form">
+                        <input type="hidden" id="rejection-solicitud-id">
+
+                        <label for="rejection-reason"
+                            style="font-weight:600; color:#333; margin-bottom:8px; display:block;">
+                            Motivo del rechazo: <span style="color:red;">*</span>
+                        </label>
+                        <textarea id="rejection-reason" required rows="4"
+                            style="width:100%; padding:12px; border:2px solid #ddd; border-radius:6px; font-family:inherit; resize:vertical;"
+                            placeholder="Explica por qué se rechaza la solicitud de reingreso..."></textarea>
+
+                        <small style="color:#666; display:block; margin-top:5px;">
+                            Este motivo será visible para el usuario que solicitó el reingreso.
+                        </small>
+
+                        <div style="margin-top:25px; text-align:right; border-top:1px solid #eee; padding-top:15px;">
+                            <button type="button" onclick="closeRejectionModal()"
+                                style="background:#6c757d; color:white; padding:12px 20px; border:none; border-radius:6px; margin-right:10px; cursor:pointer;">
+                                Cancelar
+                            </button>
+                            <button type="submit"
+                                style="background:#dc3545; color:white; padding:12px 20px; border:none; border-radius:6px; cursor:pointer; font-weight:600;">
+                                Rechazar Solicitud
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </main>
     <footer>

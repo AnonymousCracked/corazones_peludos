@@ -796,17 +796,103 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 1000);
 });
 
-// Modificar showSection para incluir mascotas adoptadas
-const _originalShowSection = window.showSection;
-window.showSection = async function (sectionId) {
-    if (_originalShowSection) {
-        await _originalShowSection(sectionId);
-    } else {
-        document.querySelectorAll('.account-section').forEach(s => s.style.display = 'none');
-        document.getElementById(sectionId).style.display = 'block';
-    }
+// === VISTA DEL USUARIO - Ver solicitudes de reingreso rechazadas ===
 
-    if (sectionId === 'adopted-pets') {
-        await loadAdoptedPets();
+// Función para cargar solicitudes de reingreso del usuario (para account.html)
+async function loadUserReturnRequests() {
+    try {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) return;
+
+        const response = await fetch(`../api/adoption/get_user_return_requests.php?user_id=${currentUser.id}`, {
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+        });
+        
+        const requests = await response.json();
+        const container = document.getElementById('user-return-requests-container');
+        
+        if (!container) return; // Si no existe el contenedor, no hacer nada
+        
+        if (requests.length === 0) {
+            container.innerHTML = '<p style="text-align:center; padding:20px; color:#666;">No tienes solicitudes de reingreso.</p>';
+            return;
+        }
+        
+        container.innerHTML = requests.map(req => `
+            <div style="border:1px solid #ddd; padding:15px; margin:10px 0; border-radius:8px; border-left:4px solid ${req.estado === 'pendiente' ? '#ffc107' : req.estado === 'aprobada' ? '#28a745' : '#dc3545'};">
+                <h4>${req.nombre_mascota}</h4>
+                <div style="margin:10px 0;">
+                    <p><strong>Fecha de solicitud:</strong> ${new Date(req.fecha_solicitud).toLocaleDateString()}</p>
+                    <p><strong>Multa:</strong> $${req.monto_multa} MXN</p>
+                    <p><strong>Estado:</strong> 
+                        <span style="text-transform:uppercase; font-weight:bold; padding:4px 8px; border-radius:4px; background:${req.estado === 'pendiente' ? '#fff3cd' : req.estado === 'aprobada' ? '#d4edda' : '#f8d7da'}; color:${req.estado === 'pendiente' ? '#856404' : req.estado === 'aprobada' ? '#155724' : '#721c24'};">
+                            ${req.estado === 'pendiente' ? '⏳ PENDIENTE' : req.estado === 'aprobada' ? '✅ APROBADA' : '❌ RECHAZADA'}
+                        </span>
+                    </p>
+                </div>
+                
+                <div style="background:#f8f9fa; padding:10px; border-radius:4px; margin:10px 0;">
+                    <strong>Tu motivo:</strong><br>
+                    <em style="word-wrap: break-word">${req.motivo_reingreso}</em>
+                </div>
+                
+                ${req.estado === 'rechazada' && req.observaciones_admin ? `
+                    <div style="background:#ffebee; padding:12px; border-radius:6px; margin:10px 0; border-left:4px solid #dc3545;">
+                        <strong style="color:#c62828; display:flex; align-items:center; gap:5px; margin-bottom:8px;">
+                            ❌ Motivo del rechazo:
+                        </strong>
+                        <p style="color:#555; margin:0; line-height:1.4; word-wrap:break-word; background:white; padding:10px; border-radius:4px; border:1px solid #ffcdd2;">
+                            ${req.observaciones_admin}
+                        </p>
+                        <small style="color:#999; margin-top:8px; display:block;">
+                            Puedes contactar al administrador si tienes dudas sobre esta decisión.
+                        </small>
+                    </div>
+                ` : ''}
+                
+                ${req.estado === 'aprobada' ? `
+                    <div style="background:#d4edda; padding:12px; border-radius:6px; margin:10px 0; border-left:4px solid #28a745;">
+                        <strong style="color:#155724;">✅ Solicitud aprobada</strong>
+                        <p style="color:#155724; margin:5px 0 0 0;">La mascota ha sido reingresada al sistema. La multa debe ser pagada según los términos establecidos.</p>
+                    </div>
+                ` : ''}
+                
+                ${req.estado === 'pendiente' ? `
+                    <div style="background:#fff3cd; padding:12px; border-radius:6px; margin:10px 0; border-left:4px solid #ffc107;">
+                        <strong style="color:#856404;">⏳ En revisión</strong>
+                        <p style="color:#856404; margin:5px 0 0 0;">Tu solicitud está siendo revisada por nuestro equipo. Te notificaremos cuando tengamos una respuesta.</p>
+                    </div>
+                ` : ''}
+            </div>
+        `).join('');
+        
+    } catch (error) {
+        console.error('Error:', error);
+        const container = document.getElementById('user-return-requests-container');
+        if (container) {
+            container.innerHTML = '<p style="color:red; text-align:center; padding:20px;">Error al cargar solicitudes</p>';
+        }
     }
-};
+}
+
+// Función para mostrar secciones
+async function showSection(sectionId) {
+    // Ocultar todas las secciones
+    const sections = document.querySelectorAll('.account-section');
+    sections.forEach(section => {
+        section.style.display = 'none';
+    });
+
+    // Mostrar la sección seleccionada
+    document.getElementById(sectionId).style.display = 'block';
+
+    // Cargar datos específicos según la sección
+    if (sectionId === 'adoption-request') {
+        await checkAdopterStatus();
+        updateAdoptionRequestUI(localStorage.getItem('isAdopter') === 'true');
+    } else if (sectionId === 'adopted-pets') {
+        await loadAdoptedPets();
+    } else if (sectionId === 'user-return-requests') {
+        loadUserReturnRequests();
+    }
+}
