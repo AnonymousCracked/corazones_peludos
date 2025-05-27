@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Cuenta - Corazones Peludos S.A</title>
+    <link rel="icon" href="../assets/img/corazones-peludos-mejor.PNG">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/account.css">
+    <link rel="stylesheet" href="../assets/css/notifications.css">
+    <link rel="stylesheet" href="../assets/css/notificaciones.css">
+</head>
+
+<body>
+    <header>
+        <h1>Mi Cuenta</h1>
+    </header>
+
+    <!-- Container para notificaciones toast -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <main class="account-container">
+        <div class="account-menu">
+            <ul>
+                <li><a href="#" onclick="showSection('adoption-history'); setActive(this)">Historial de solicitudes de
+                        adopción</a></li>
+                <li><a href="#" onclick="showSection('user-info'); setActive(this)" class="active">Información del
+                        usuario</a></li>
+                <li><a href="#" onclick="showSection('adoption-request'); setActive(this)">Solicitar Adopción</a></li>
+                <li><a href="#" onclick="location.href='index.html'">Pagina principal</a></li>
+                <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
+            </ul>
+
+
+        </div>
+
+  
+        <div class="account-content">
+            <!-- Sección de Historial de Adopción -->
+            <div id="adoption-history" class="account-section">
+                <h2>Historial de solicitudes de adopción</h2>
+                <p>Aquí aparecerán tus solicitudes de adopción anteriores.</p>
+                <div id="adoption-requests-list"></div>
+            </div>
+
+            <!-- Sección de Información del Usuario -->
+            <div id="user-info" class="account-section" style="display:block;">
+                <h2>Información del usuario</h2>
+                <div class="user-details">
+                    <div class="info-row">
+                        <strong>Nombre:</strong>
+                        <span id="user-name"></span>
+                    </div>
+
+                    <div class="info-row">
+                        <strong>Correo electrónico:</strong>
+                        <span id="user-email"></span>
+                    </div>
+
+                    <div class="info-row">
+                        <strong>Teléfono:</strong>
+                        <span id="user-phone">No registrado</span>
+                    </div>
+
+                    <div class="info-row">
+                        <strong>Dirección:</strong>
+                        <span id="user-address">No registrada</span>
+                    </div>
+
+                    <div class="info-row">
+                        <strong>Edad:</strong>
+                        <span id="user-age">No registrada</span>
+                    </div>
+
+                    <div class="info-row">
+                        <strong>Experiencia con mascotas:</strong>
+                        <span id="user-experience" class="long-text">No registrada</span>
+                    </div>
+
+                    <div class="info-row">
+                        <strong>Fecha de registro:</strong>
+                        <span id="user-register-date"></span>
+                    </div>
+                </div>
+                <button onclick="showEditForm()">Editar información</button>
+
+                <div id="edit-user-form" style="display:none;">
+                    <h3>Editar información</h3>
+                    <form id="updateForm">
+                        <label for="edit-name">Nombre Completo:</label>
+                        <input type="text" id="edit-name" name="edit-name" minlength="3" maxlength="35" required>
+
+                        <label for="edit-email">Correo Electrónico:</label>
+                        <input type="email" id="edit-email" name="edit-email" maxlength="40" required>
+
+                        <label for="edit-phone">Teléfono:</label>
+                        <input type="tel" id="edit-phone" name="edit-phone" maxlength="10" placeholder="Ej: 6561234567"
+                            pattern="[0-9]+" title="Solo numeros" required>
+
+                        <label for="edit-address">Dirección:</label>
+                        <input id="edit-address" name="edit-address" rows="3" placeholder="Tu dirección completa" maxlength="40" required></input>
+
+                        <label for="edit-age">Edad:</label>
+                        <input type="number" id="edit-age" name="edit-age" min="18" max="99" placeholder="Tu edad" required>
+
+                        <label for="edit-experience">Experiencia con mascotas:</label>
+                        <textarea id="edit-experience" name="edit-experience"
+                            placeholder="Describe tu experiencia con mascotas (Min 70 letras - Max 300 letras)" style="width: 25rem; height: 6rem;" minlength="70" maxlength="300" required></textarea>
+
+                        <label for="current-password">Contraseña actual (para confirmar cambios):</label>
+                        <input type="password" id="current-password" name="current-password" minlength="8" maxlength="64" required>
+
+                        <label for="new-password">Nueva contraseña (opcional):</label>
+                        <input type="password" id="new-password" name="new-password" minlength="8" maxlength="64" placeholder="Dejar vacío para mantener la actual">
+
+                        <label for="confirm-new-password">Confirmar nueva contraseña:</label>
+                        <input type="password" id="confirm-new-password" name="confirm-new-password" minlength="8" maxlength="64" placeholder="Confirmar nueva contraseña">
+
+                        <button type="submit">Guardar cambios</button>
+                        <button type="button" onclick="hideEditForm()">Cancelar</button>
+                    </form>
+                    <p id="update-error-message" class="error-message" style="color: red; margin-top: 10px;"></p>
+                    <p id="update-success-message" class="success-message" style="color: green; margin-top: 10px;"></p>
+                </div>
+            </div>
+
+            <!-- Sección de Solicitud de Adopción -->
+            <div id="adoption-request" class="account-section">
+                <h2>Solicitud de Adopción</h2>
+                <div id="adoption-request-content">
+                    <!-- Contenido se cargará dinámicamente según si es adoptante o no -->
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 Adopta una Mascota - Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/scriptEditarInfo.js"></script>
+    <script src="../assets/js/scriptAccount.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Cuenta - Corazones Peludos S.A</title>
+    <link rel="icon" href="../assets/img/corazones-peludos-mejor.PNG">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/notifications.css">
+</head>
+
+<body>
+    <header>
+        <h1>Mi Cuenta</h1>
+    </header>
+
+    <!-- Container para notificaciones toast -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Modal para editar mascota -->
+    <div id="edit-pet-modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeEditModal()">&times;</span>
+        <h3>Editar Mascota</h3>
+        <form id="edit-pet-form" enctype="multipart/form-data">
+            <input type="hidden" id="edit-pet-id" name="pet_id">
+
+            <label for="edit-pet-name">Nombre:</label>
+            <input type="text" id="edit-pet-name" name="nombre" required>
+
+            <label for="edit-pet-age">Edad (años):</label>
+            <input type="number" id="edit-pet-age" name="edad" min="0" max="30" required>
+
+            <label for="edit-pet-breed">Raza:</label>
+            <input type="text" id="edit-pet-breed" name="raza" required>
+
+            <label for="edit-pet-gender">Sexo:</label>
+            <select id="edit-pet-gender" name="sexo" required>
+                <option value="">Selecciona una opción</option>
+                <option value="macho">Macho</option>
+                <option value="hembra">Hembra</option>
+            </select>
+
+            <label for="edit-pet-health">Estado de salud:</label>
+            <select id="edit-pet-health" name="estado_salud" required>
+                <option value="">Selecciona un estado de salud</option>
+                <option value="bueno">Bueno</option>
+                <option value="regular">Regular</option>
+                <option value="malo">Malo</option>
+            </select>
+
+            <label for="edit-pet-species">Especie:</label>
+            <select id="edit-pet-species" name="especie" onchange="toggleEditOtherSpecies()" required>
+                <option value="">Selecciona una especie</option>
+                <option value="perro">Perro</option>
+                <option value="gato">Gato</option>
+                <option value="conejo">Conejo</option>
+                <option value="ave">Ave</option>
+                <option value="otro">Otro</option>
+            </select>
+
+            <!-- Nuevo campo para especie personalizada -->
+            <div id="edit-other-species-container" style="display: none; margin-top: 8px;">
+                <label for="edit-other-species">Especifica la especie:</label>
+                <input type="text" id="edit-other-species" name="especie_personalizada">
+            </div>
+
+            <label for="edit-pet-status">Estado:</label>
+            <select id="edit-pet-status" name="estado" required>
+                <option value="disponible">Disponible</option>
+                <option value="procesando">Procesando</option>
+                <option value="adoptada">Adoptada</option>
+            </select>
+
+            <label for="edit-pet-image">Nueva imagen (opcional):</label>
+            <input type="file" id="edit-pet-image" name="imagen" accept="image/*">
+
+            <div id="edit-image-preview">
+                <img id="edit-preview-img" src="" alt="Vista previa">
+            </div>
+
+            <div class="modal-buttons">
+                <button type="button" onclick="closeEditModal()">Cancelar</button>
+                <button type="submit">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+    <main class="account-container">
+        <div class="account-menu">
+            <ul>
+                <li><a href="#" onclick="showSection('adoption-history'); setActive(this)">Gestión de Solicitudes de
+                        Adopción</a></li>
+                <li><a href="#" onclick="showSection('user-info'); setActive(this)" class="active">Información del
+                        usuario</a></li>
+                <li id="admin-menu-item" style="display:none;">
+                    <a href="#" onclick="showSection('admin-panel'); setActive(this)">Panel de Administrador</a>
+                </li>
+                <li><a href="#" onclick="location.href='index.html'">Pagina principal</a></li>
+                <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
+            </ul>
+        </div>
+
+        <div class="account-content">
+            <!-- Sección de Historial de Adopción -->
+            <div id="adoption-history" class="account-section">
+                <h2>Gestión de Solicitudes de Adopción</h2>
+
+                <!-- Filtros de solicitudes -->
+                <div class="filters-container"
+                    style="margin: 20px 0; padding: 15px; background: #f5f5f5; border-radius: 8px; border: 1px solid #ddd;">
+                    <h4 style="margin: 0 0 10px 0; color: #333;">Filtrar solicitudes por estado:</h4>
+                    <div class="filter-buttons" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button onclick="filterRequests('todas')" id="filter-todas"
+                            style="background: #2196f3; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: bold;">
+                            📋 Todas las solicitudes
+                        </button>
+                        <button onclick="filterRequests('pendiente')" id="filter-pendiente"
+                            style="background: #ff9800; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">
+                            ⏳ Pendientes
+                        </button>
+                        <button onclick="filterRequests('rechazada')" id="filter-rechazado"
+                            style="background: #f44336; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                            ❌ Rechazadas
+                        </button>
+                    </div>
+                    <p id="filter-status" style="margin: 10px 0 0 0; font-style: italic; color: #666;">
+                        Mostrando: Todas las solicitudes
+                    </p>
+                </div>
+
+                <div id="adoption-requests-list">
+                    <!-- Las solicitudes se cargarán aquí dinámicamente -->
+                </div>
+            </div>
+
+            <!-- Sección de Información del Usuario -->
+<div id="user-info" class="account-section" style="display:block;">
+    <h2>Información del usuario</h2>
+    <div class="user-details">
+        <div class="info-row">
+            <strong>Nombre:</strong>
+            <span id="user-name"></span>
+        </div>
+
+        <div class="info-row">
+            <strong>Correo electrónico:</strong>
+            <span id="user-email"></span>
+        </div>
+
+        <div class="info-row">
+            <strong>Teléfono:</strong>
+            <span id="user-phone">No registrado</span>
+        </div>
+
+        <div class="info-row">
+            <strong>Dirección:</strong>
+            <span id="user-address">No registrada</span>
+        </div>
+
+        <div class="info-row">
+            <strong>Edad:</strong>
+            <span id="user-age">No registrada</span>
+        </div>
+
+        <div class="info-row">
+            <strong>Experiencia con mascotas:</strong>
+            <span id="user-experience" class="long-text">No registrada</span>
+        </div>
+
+        <div class="info-row">
+            <strong>Fecha de registro:</strong>
+            <span id="user-register-date"></span>
+        </div>
+    </div>
+    <button onclick="showEditForm()">Editar información</button>
+
+    <div id="edit-user-form" style="display:none;">
+        <h3>Editar información</h3>
+        <form id="updateForm">
+            <label for="edit-name">Nombre Completo:</label>
+            <input type="text" id="edit-name" name="edit-name" minlength="3" maxlength="35" required>
+
+            <label for="edit-email">Correo Electrónico:</label>
+            <input type="email" id="edit-email" name="edit-email" maxlength="40" required>
+
+            <label for="edit-phone">Teléfono:</label>
+            <input type="tel" id="edit-phone" name="edit-phone" maxlength="10" placeholder="Ej: 6561234567"
+                pattern="[0-9]+" title="Solo numeros" required>
+
+            <label for="edit-address">Dirección:</label>
+            <input id="edit-address" name="edit-address" rows="3" maxlength="40" placeholder="Tu dirección completa" required>
+
+            <label for="edit-age">Edad:</label>
+            <input type="number" id="edit-age" name="edit-age" min="18" max="99" placeholder="Tu edad" required>
+
+            <label for="edit-experience">Experiencia con mascotas:</label>
+            <textarea id="edit-experience" name="edit-experience"
+                placeholder="Describe tu experiencia con mascotas (Min 70 letras - Max 300 letras)" 
+                style="width: 25rem; height: 6rem;" minlength="70" maxlength="300" required></textarea>
+
+            <label for="current-password">Contraseña actual (para confirmar cambios):</label>
+            <input type="password" id="current-password" name="current-password" minlength="8" maxlength="64" required>
+
+            <label for="new-password">Nueva contraseña (opcional):</label>
+            <input type="password" id="new-password" name="new-password" minlength="8" maxlength="64" 
+                placeholder="Dejar vacío para mantener la actual">
+
+            <label for="confirm-new-password">Confirmar nueva contraseña:</label>
+            <input type="password" id="confirm-new-password" name="confirm-new-password" minlength="8" maxlength="64" 
+                placeholder="Confirmar nueva contraseña">
+
+            <button type="submit">Guardar cambios</button>
+            <button type="button" onclick="hideEditForm()">Cancelar</button>
+        </form>
+        <p id="update-error-message" class="error-message" style="color: red; margin-top: 10px;"></p>
+        <p id="update-success-message" class="success-message" style="color: green; margin-top: 10px;"></p>
+    </div>
+</div>
+
+            <div id="admin-panel" class="account-section" style="display:none;">
+                <h2>Panel de Administrador</h2>
+
+                <!-- Gestión de Mascotas -->
+                <div class="admin-section">
+                    <h3>Gestión de Mascotas</h3>
+
+                    <!-- Formulario para agregar mascota -->
+                    <div class="admin-subsection">
+                        <h4>Agregar Nueva Mascota</h4>
+                        <form id="add-pet-form" enctype="multipart/form-data">
+                            <label for="pet-name">Nombre:</label>
+                            <input type="text" id="pet-name" name="nombre" minlength="2" maxlength="16" required>
+
+                            <label for="pet-age">Edad (años):</label>
+                            <input type="number" id="pet-age" name="edad" min="0" max="30" required>
+
+                            <label for="pet-breed">Raza:</label>
+                            <input type="text" id="pet-breed" name="raza" minlength="2" maxlength="30" required>
+
+                            <label for="pet-gender">Sexo:</label>
+                            <select id="pet-gender" name="sexo" required>
+                                <option value="macho">Macho</option>
+                                <option value="hembra">Hembra</option>
+                            </select>
+
+                            <label for="pet-health">Estado de salud:</label>
+                            <select id="pet-health" name="estado_salud" required>
+                                <option value="bueno">Bueno</option>
+                                <option value="regular">Regular</option>
+                                <option value="malo">Malo</option>
+                            </select>
+
+                            <label for="pet-species">Especie:</label>
+                            <select id="pet-species" name="especie" onchange="toggleOtherSpecies()" required>
+                                <option value="">Selecciona una especie</option>
+                                <option value="perro">Perro</option>
+                                <option value="gato">Gato</option>
+                                <option value="conejo">Conejo</option>
+                                <option value="ave">Ave</option>
+                                <option value="otro">Otro</option>
+                            </select>
+
+                            <div id="other-species-container" style="display: none; margin-top: 8px;">
+                                <label for="other-species">Especifica la especie:</label>
+                                <input type="text" id="other-species" name="especie_personalizada" minlength="4" maxlength="40">
+                            </div>
+
+                            <label for="pet-image">Imagen de la mascota:</label>
+                            <input type="file" id="pet-image" name="imagen" accept="image/*" required>
+
+                            <div id="image-preview" style="margin-top: 10px; display: none;">
+                                <img id="preview-img" src="" alt="Vista previa"
+                                    style="max-width: 200px; max-height: 200px; border-radius: 8px;">
+                            </div>
+
+                            <button type="submit">Agregar Mascota</button>
+                        </form>
+                        <p id="add-pet-message" style="margin-top: 10px;"></p>
+                    </div>
+
+                    <!-- Lista y gestión de mascotas existentes -->
+                    <div class="admin-subsection">
+                        <h4>Mascotas Existentes</h4>
+                        <div id="pets-list">
+                            <!-- Las mascotas se cargarán aquí dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 Adopta una Mascota - Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/scriptEditarInfo.js"></script>
+    <script src="../assets/js/scriptAdminDash.js"></script>
+</body>
+
+</html>

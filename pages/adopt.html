@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mascotas en Adopción</title>
+    <link rel="icon" href="../assets/img/corazones-peludos-mejor.PNG">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/adopt.css">
+</head>
+
+<body>
+    <header>
+        <h1>Mascotas en Adopción</h1>
+        <nav>
+            <a href="index.html" class="btn">Volver a Inicio</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="filtros">
+            <h2>Filtrar Mascotas</h2>
+            <label for="especie">Especie:</label>
+            <select id="especie">
+                <option value="todas">Todas</option>
+                <option value="perro">Perros</option>
+                <option value="gato">Gatos</option>
+                <option value="ave">Aves</option>
+                <option value="otro">Otros</option>
+            </select>
+            
+            <label for="edad">Edad:</label>
+            <input type="number" id="edad" name="edad" min="1" maxlength="40" placeholder="Edad en años">
+
+            <button onclick="applyFilters()" class="btn">Aplicar Filtros</button>
+        </section>
+        
+        <h2>Conoce a Nuestras Mascotas</h2>
+        <section id="lista-mascotas">
+            <div id="loading-message">Cargando mascotas disponibles...</div>
+        </section>
+
+        <div class="pagination" id="pagination">
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Corazones Peludos S.A - Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="../assets/js/scriptAdopt.js"></script>
+</body>
+
+</html>
