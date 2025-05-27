@@ -977,3 +977,96 @@ function toggleEditOtherSpecies() {
         select.setAttribute('name', 'especie'); // el select vuelve a tener el name
     }
 }
+
+// === GESTIÓN DE SOLICITUDES DE REINGRESO ===
+async function loadReturnRequests() {
+    try {
+        const response = await fetch('../api/adoption/get_return_requests.php', {
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+        });
+        const requests = await response.json();
+        const container = document.getElementById('return-requests-list');
+        
+        if (requests.length === 0) {
+            container.innerHTML = '<p style="text-align:center; padding:40px;">No hay solicitudes de reingreso.</p>';
+            return;
+        }
+        
+        container.innerHTML = requests.map(req => `
+            <div style="border:1px solid #ddd; padding:15px; margin:10px 0; border-radius:8px; border-left:4px solid ${req.estado === 'pendiente' ? '#ffc107' : req.estado === 'aprobada' ? '#28a745' : '#dc3545'};">
+                <h4>Solicitud #${req.solicitud_id} - ${req.nombre_mascota}</h4>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin:10px 0;">
+                    <div>
+                        <p><strong>Usuario:</strong> ${req.nombre_usuario}</p>
+                        <p><strong>Email:</strong> ${req.email}</p>
+                        <p><strong>Fecha:</strong> ${new Date(req.fecha_solicitud).toLocaleDateString()}</p>
+                    </div>
+                    <div>
+                        <p><strong>Multa:</strong> $${req.monto_multa} MXN</p>
+                        <p><strong>Estado:</strong> <span style="text-transform:uppercase; font-weight:bold; color:${req.estado === 'pendiente' ? '#ff9800' : req.estado === 'aprobada' ? '#28a745' : '#dc3545'};">${req.estado}</span></p>
+                    </div>
+                </div>
+                <div style="background:#f8f9fa; padding:10px; border-radius:4px; margin:10px 0;">
+                    <strong>Motivo:</strong><br>
+                    <em>${req.motivo_reingreso}</em>
+                </div>
+                ${req.estado === 'pendiente' ? `
+                    <div style="text-align:right; margin-top:15px;">
+                        <button onclick="processReturn(${req.solicitud_id}, 'aprobar')" style="background:#28a745; color:white; padding:8px 15px; border:none; border-radius:4px; margin-right:10px; cursor:pointer;">✅ Aprobar</button>
+                        <button onclick="processReturn(${req.solicitud_id}, 'rechazar')" style="background:#dc3545; color:white; padding:8px 15px; border:none; border-radius:4px; cursor:pointer;">❌ Rechazar</button>
+                    </div>` : ''}
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('return-requests-list').innerHTML = '<p style="color:red;">Error al cargar solicitudes</p>';
+    }
+}
+
+async function processReturn(solicitudId, action) {
+    const actionText = action === 'aprobar' ? 'aprobar' : 'rechazar';
+    if (!confirm(`¿Estás seguro de ${actionText} esta solicitud?`)) return;
+    
+    try {
+        const endpoint = action === 'aprobar' ? 'approve_return_request.php' : 'reject_return_request.php';
+        const response = await fetch(`../api/adoption/${endpoint}?id=${solicitudId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            body: JSON.stringify({ observaciones_admin: '' })
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+            showToast('Éxito', result.message, 'success', 4000);
+            loadReturnRequests();
+            // Recargar mascotas si es necesario
+            if (typeof loadPets === 'function') loadPets();
+        } else {
+            showToast('Error', result.message, 'error', 4000);
+        }
+    } catch (error) {
+        showToast('Error', 'Error al procesar solicitud', 'error', 4000);
+    }
+}
+
+// Modificar showSection existente para incluir solicitudes de reingreso
+const _originalShowSectionAdmin = window.showSection;
+window.showSection = function(sectionId) {
+    if (_originalShowSectionAdmin) {
+        _originalShowSectionAdmin(sectionId);
+    } else {
+        document.querySelectorAll('.account-section').forEach(s => s.style.display = 'none');
+        document.getElementById(sectionId).style.display = 'block';
+    }
+    
+    // Cargar datos específicos según la sección
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser && currentUser.rol === 'admin') {
+        if (sectionId === 'return-requests') {
+            loadReturnRequests();
+        }
+    }
+};

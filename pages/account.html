@@ -23,10 +23,12 @@
     <main class="account-container">
         <div class="account-menu">
             <ul>
-                <li><a href="#" onclick="showSection('adoption-history'); setActive(this)">Historial de solicitudes de adopción</a></li>
+                <li><a href="#" onclick="showSection('adoption-history'); setActive(this)">Historial de solicitudes de
+                        adopción</a></li>
                 <li><a href="#" onclick="showSection('user-info'); setActive(this)" class="active">Información del
                         usuario</a></li>
                 <li><a href="#" onclick="showSection('adoption-request'); setActive(this)">Solicitar Adopción</a></li>
+                <li><a href="#" onclick="showSection('adopted-pets'); setActive(this)">Mis Mascotas Adoptadas</a></li>
                 <li><a href="#" onclick="location.href='index.html'">Pagina principal</a></li>
                 <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
             </ul>
@@ -34,7 +36,7 @@
 
         </div>
 
-  
+
         <div class="account-content">
             <!-- Sección de Historial de Adopción -->
             <div id="adoption-history" class="account-section">
@@ -98,23 +100,29 @@
                             pattern="[0-9]+" title="Solo numeros" required>
 
                         <label for="edit-address">Dirección:</label>
-                        <input id="edit-address" name="edit-address" rows="3" placeholder="Tu dirección completa" maxlength="40" required></input>
+                        <input id="edit-address" name="edit-address" rows="3" placeholder="Tu dirección completa"
+                            maxlength="40" required></input>
 
                         <label for="edit-age">Edad:</label>
-                        <input type="number" id="edit-age" name="edit-age" min="18" max="99" placeholder="Tu edad" required>
+                        <input type="number" id="edit-age" name="edit-age" min="18" max="99" placeholder="Tu edad"
+                            required>
 
                         <label for="edit-experience">Experiencia con mascotas:</label>
                         <textarea id="edit-experience" name="edit-experience"
-                            placeholder="Describe tu experiencia con mascotas (Min 70 letras - Max 300 letras)" style="width: 25rem; height: 6rem;" minlength="70" maxlength="300" required></textarea>
+                            placeholder="Describe tu experiencia con mascotas (Min 70 letras - Max 300 letras)"
+                            style="width: 25rem; height: 6rem;" minlength="70" maxlength="300" required></textarea>
 
                         <label for="current-password">Contraseña actual (para confirmar cambios):</label>
-                        <input type="password" id="current-password" name="current-password" minlength="8" maxlength="64" required>
+                        <input type="password" id="current-password" name="current-password" minlength="8"
+                            maxlength="64" required>
 
                         <label for="new-password">Nueva contraseña (opcional):</label>
-                        <input type="password" id="new-password" name="new-password" minlength="8" maxlength="64" placeholder="Dejar vacío para mantener la actual">
+                        <input type="password" id="new-password" name="new-password" minlength="8" maxlength="64"
+                            placeholder="Dejar vacío para mantener la actual">
 
                         <label for="confirm-new-password">Confirmar nueva contraseña:</label>
-                        <input type="password" id="confirm-new-password" name="confirm-new-password" minlength="8" maxlength="64" placeholder="Confirmar nueva contraseña">
+                        <input type="password" id="confirm-new-password" name="confirm-new-password" minlength="8"
+                            maxlength="64" placeholder="Confirmar nueva contraseña">
 
                         <button type="submit">Guardar cambios</button>
                         <button type="button" onclick="hideEditForm()">Cancelar</button>
@@ -131,6 +139,44 @@
                     <!-- Contenido se cargará dinámicamente según si es adoptante o no -->
                 </div>
             </div>
+
+            <!-- Sección de Mascotas Adoptadas -->
+            <div id="adopted-pets" class="account-section">
+                <h2>Mis Mascotas Adoptadas</h2>
+                <div id="adopted-pets-container"></div>
+
+                <!-- Modal para reingreso -->
+                <div id="return-modal"
+                    style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5);">
+                    <div
+                        style="background:white; margin:10% auto; padding:20px; border-radius:10px; width:80%; max-width:500px;">
+                        <span onclick="closeReturnModal()"
+                            style="color:#aaa; float:right; font-size:28px; font-weight:bold; cursor:pointer;">&times;</span>
+                        <h3>Solicitar Reingreso</h3>
+                        <form id="return-form">
+                            <input type="hidden" id="historial-id">
+                            <label>Motivo:</label>
+                            <select id="return-reason" required style="width:100%; padding:8px; margin:5px 0;">
+                                <option value="">Selecciona un motivo</option>
+                                <option value="falta_espacio">Falta de espacio</option>
+                                <option value="problemas_salud">Problemas de salud</option>
+                                <option value="cambio_familiar">Cambio familiar</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                            <label>Detalles:</label>
+                            <textarea id="return-details" required rows="4" style="width:100%; padding:8px;"></textarea>
+                            <div style="background:#fff3cd; padding:10px; margin:10px 0; border-radius:5px;">
+                                <strong>⚠️ Multa: $500.00 MXN</strong>
+                            </div>
+                            <button type="submit"
+                                style="background:#dc3545; color:white; padding:10px 20px; border:none; border-radius:5px;">Solicitar</button>
+                            <button type="button" onclick="closeReturnModal()"
+                                style="background:#6c757d; color:white; padding:10px 20px; border:none; border-radius:5px; margin-left:10px;">Cancelar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </main>
     <footer>

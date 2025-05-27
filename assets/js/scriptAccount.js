@@ -663,3 +663,117 @@ window.showErrorToast = function (message) {
         5000
     );
 };
+
+// === FUNCIONES PARA MASCOTAS ADOPTADAS ===
+async function loadAdoptedPets() {
+    try {
+        const response = await fetch('../api/adoption/get_adopted_pets.php', {
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+        });
+        const pets = await response.json();
+        const container = document.getElementById('adopted-pets-container');
+
+        if (pets.length === 0) {
+            container.innerHTML = '<p style="text-align:center; padding:40px;">No tienes mascotas adoptadas.</p>';
+            return;
+        }
+
+        container.innerHTML = pets.map(pet => `
+            <div style="border:1px solid #ddd; padding:15px; margin:10px 0; border-radius:8px; background:white;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <h4>${pet.nombre}</h4>
+                        <p><strong>Raza:</strong> ${pet.raza} | <strong>Edad:</strong> ${pet.edad} años</p>
+                        <p><strong>Adoptado:</strong> ${new Date(pet.fecha_adopcion).toLocaleDateString()}</p>
+                    </div>
+                    <div>
+                        ${!pet.tiene_solicitud_pendiente ?
+                `<button onclick="openReturnModal(${pet.historial_id}, '${pet.nombre}')" style="background:#dc3545; color:white; padding:8px 15px; border:none; border-radius:4px; cursor:pointer;">Devolver</button>` :
+                `<span style="color:#856404; background:#fff3cd; padding:5px 10px; border-radius:4px;">Solicitud pendiente</span>`
+            }
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('adopted-pets-container').innerHTML = '<p style="color:red;">Error al cargar mascotas</p>';
+    }
+}
+
+function openReturnModal(historialId, petName) {
+    document.getElementById('historial-id').value = historialId;
+    document.getElementById('return-modal').style.display = 'block';
+}
+
+function closeReturnModal() {
+    document.getElementById('return-modal').style.display = 'none';
+    document.getElementById('return-form').reset();
+}
+
+// Event listener para formulario de reingreso
+document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(() => {
+        const form = document.getElementById('return-form');
+        if (form) {
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const historialId = document.getElementById('historial-id').value;
+                const reason = document.getElementById('return-reason').value;
+                const details = document.getElementById('return-details').value;
+
+                if (!reason || details.length < 10) {
+                    alert('Por favor completa todos los campos');
+                    return;
+                }
+
+                if (!confirm('¿Estás seguro? Se aplicará una multa de $500 MXN')) {
+                    return;
+                }
+
+                const motivo = `Motivo: ${reason}\nDetalles: ${details}`;
+
+                try {
+                    const response = await fetch('../api/adoption/submit_return_request.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + localStorage.getItem('token')
+                        },
+                        body: JSON.stringify({
+                            historial_id: parseInt(historialId),
+                            motivo_reingreso: motivo
+                        })
+                    });
+
+                    const result = await response.json();
+                    if (result.success) {
+                        alert('Solicitud enviada correctamente');
+                        closeReturnModal();
+                        loadAdoptedPets();
+                    } else {
+                        alert('Error: ' + result.message);
+                    }
+                } catch (error) {
+                    alert('Error al enviar solicitud');
+                }
+            });
+        }
+    }, 1000);
+});
+
+// Modificar showSection para incluir mascotas adoptadas
+const _originalShowSection = window.showSection;
+window.showSection = async function (sectionId) {
+    if (_originalShowSection) {
+        await _originalShowSection(sectionId);
+    } else {
+        document.querySelectorAll('.account-section').forEach(s => s.style.display = 'none');
+        document.getElementById(sectionId).style.display = 'block';
+    }
+
+    if (sectionId === 'adopted-pets') {
+        await loadAdoptedPets();
+    }
+};

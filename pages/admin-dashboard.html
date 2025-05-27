@@ -21,79 +21,83 @@
 
     <!-- Modal para editar mascota -->
     <div id="edit-pet-modal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeEditModal()">&times;</span>
-        <h3>Editar Mascota</h3>
-        <form id="edit-pet-form" enctype="multipart/form-data">
-            <input type="hidden" id="edit-pet-id" name="pet_id">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <h3>Editar Mascota</h3>
+            <form id="edit-pet-form" enctype="multipart/form-data">
+                <input type="hidden" id="edit-pet-id" name="pet_id">
 
-            <label for="edit-pet-name">Nombre:</label>
-            <input type="text" id="edit-pet-name" name="nombre" required>
+                <label for="edit-pet-name">Nombre:</label>
+                <input type="text" id="edit-pet-name" name="nombre" required>
 
-            <label for="edit-pet-age">Edad (años):</label>
-            <input type="number" id="edit-pet-age" name="edad" min="0" max="30" required>
+                <label for="edit-pet-age">Edad (años):</label>
+                <input type="number" id="edit-pet-age" name="edad" min="0" max="30" required>
 
-            <label for="edit-pet-breed">Raza:</label>
-            <input type="text" id="edit-pet-breed" name="raza" required>
+                <label for="edit-pet-breed">Raza:</label>
+                <input type="text" id="edit-pet-breed" name="raza" required>
 
-            <label for="edit-pet-gender">Sexo:</label>
-            <select id="edit-pet-gender" name="sexo" required>
-                <option value="">Selecciona una opción</option>
-                <option value="macho">Macho</option>
-                <option value="hembra">Hembra</option>
-            </select>
+                <label for="edit-pet-gender">Sexo:</label>
+                <select id="edit-pet-gender" name="sexo" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="macho">Macho</option>
+                    <option value="hembra">Hembra</option>
+                </select>
 
-            <label for="edit-pet-health">Estado de salud:</label>
-            <select id="edit-pet-health" name="estado_salud" required>
-                <option value="">Selecciona un estado de salud</option>
-                <option value="bueno">Bueno</option>
-                <option value="regular">Regular</option>
-                <option value="malo">Malo</option>
-            </select>
+                <label for="edit-pet-health">Estado de salud:</label>
+                <select id="edit-pet-health" name="estado_salud" required>
+                    <option value="">Selecciona un estado de salud</option>
+                    <option value="bueno">Bueno</option>
+                    <option value="regular">Regular</option>
+                    <option value="malo">Malo</option>
+                </select>
 
-            <label for="edit-pet-species">Especie:</label>
-            <select id="edit-pet-species" name="especie" onchange="toggleEditOtherSpecies()" required>
-                <option value="">Selecciona una especie</option>
-                <option value="perro">Perro</option>
-                <option value="gato">Gato</option>
-                <option value="conejo">Conejo</option>
-                <option value="ave">Ave</option>
-                <option value="otro">Otro</option>
-            </select>
+                <label for="edit-pet-species">Especie:</label>
+                <select id="edit-pet-species" name="especie" onchange="toggleEditOtherSpecies()" required>
+                    <option value="">Selecciona una especie</option>
+                    <option value="perro">Perro</option>
+                    <option value="gato">Gato</option>
+                    <option value="conejo">Conejo</option>
+                    <option value="ave">Ave</option>
+                    <option value="otro">Otro</option>
+                </select>
 
-            <!-- Nuevo campo para especie personalizada -->
-            <div id="edit-other-species-container" style="display: none; margin-top: 8px;">
-                <label for="edit-other-species">Especifica la especie:</label>
-                <input type="text" id="edit-other-species" name="especie_personalizada">
-            </div>
+                <!-- Nuevo campo para especie personalizada -->
+                <div id="edit-other-species-container" style="display: none; margin-top: 8px;">
+                    <label for="edit-other-species">Especifica la especie:</label>
+                    <input type="text" id="edit-other-species" name="especie_personalizada">
+                </div>
 
-            <label for="edit-pet-status">Estado:</label>
-            <select id="edit-pet-status" name="estado" required>
-                <option value="disponible">Disponible</option>
-                <option value="procesando">Procesando</option>
-                <option value="adoptada">Adoptada</option>
-            </select>
+                <label for="edit-pet-status">Estado:</label>
+                <select id="edit-pet-status" name="estado" required>
+                    <option value="disponible">Disponible</option>
+                    <option value="procesando">Procesando</option>
+                    <option value="adoptada">Adoptada</option>
+                </select>
 
-            <label for="edit-pet-image">Nueva imagen (opcional):</label>
-            <input type="file" id="edit-pet-image" name="imagen" accept="image/*">
+                <label for="edit-pet-image">Nueva imagen (opcional):</label>
+                <input type="file" id="edit-pet-image" name="imagen" accept="image/*">
 
-            <div id="edit-image-preview">
-                <img id="edit-preview-img" src="" alt="Vista previa">
-            </div>
+                <div id="edit-image-preview">
+                    <img id="edit-preview-img" src="" alt="Vista previa">
+                </div>
 
-            <div class="modal-buttons">
-                <button type="button" onclick="closeEditModal()">Cancelar</button>
-                <button type="submit">Guardar Cambios</button>
-            </div>
-        </form>
+                <div class="modal-buttons">
+                    <button type="button" onclick="closeEditModal()">Cancelar</button>
+                    <button type="submit">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
     <main class="account-container">
         <div class="account-menu">
             <ul>
-                <li><a href="#" onclick="showSection('adoption-history'); setActive(this)">Gestión de Solicitudes de Adopción</a></li>
-                <li><a href="#" onclick="showSection('user-info'); setActive(this)" class="active">Información del usuario</a></li>
+                <li><a href="#" onclick="showSection('adoption-history'); setActive(this)">Gestión de Solicitudes de
+                        Adopción</a></li>
+                <li><a href="#" onclick="showSection('return-requests'); setActive(this)">Solicitudes de Reingreso</a>
+                </li>
+                <li><a href="#" onclick="showSection('user-info'); setActive(this)" class="active">Información del
+                        usuario</a></li>
                 <li id="admin-menu-item" style="display:none;">
                     <a href="#" onclick="showSection('admin-panel'); setActive(this)">Panel de Administrador</a>
                 </li>
@@ -136,88 +140,91 @@
             </div>
 
             <!-- Sección de Información del Usuario -->
-<div id="user-info" class="account-section" style="display:block;">
-    <h2>Información del usuario</h2>
-    <div class="user-details">
-        <div class="info-row">
-            <strong>Nombre:</strong>
-            <span id="user-name"></span>
-        </div>
+            <div id="user-info" class="account-section" style="display:block;">
+                <h2>Información del usuario</h2>
+                <div class="user-details">
+                    <div class="info-row">
+                        <strong>Nombre:</strong>
+                        <span id="user-name"></span>
+                    </div>
 
-        <div class="info-row">
-            <strong>Correo electrónico:</strong>
-            <span id="user-email"></span>
-        </div>
+                    <div class="info-row">
+                        <strong>Correo electrónico:</strong>
+                        <span id="user-email"></span>
+                    </div>
 
-        <div class="info-row">
-            <strong>Teléfono:</strong>
-            <span id="user-phone">No registrado</span>
-        </div>
+                    <div class="info-row">
+                        <strong>Teléfono:</strong>
+                        <span id="user-phone">No registrado</span>
+                    </div>
 
-        <div class="info-row">
-            <strong>Dirección:</strong>
-            <span id="user-address">No registrada</span>
-        </div>
+                    <div class="info-row">
+                        <strong>Dirección:</strong>
+                        <span id="user-address">No registrada</span>
+                    </div>
 
-        <div class="info-row">
-            <strong>Edad:</strong>
-            <span id="user-age">No registrada</span>
-        </div>
+                    <div class="info-row">
+                        <strong>Edad:</strong>
+                        <span id="user-age">No registrada</span>
+                    </div>
 
-        <div class="info-row">
-            <strong>Experiencia con mascotas:</strong>
-            <span id="user-experience" class="long-text">No registrada</span>
-        </div>
+                    <div class="info-row">
+                        <strong>Experiencia con mascotas:</strong>
+                        <span id="user-experience" class="long-text">No registrada</span>
+                    </div>
 
-        <div class="info-row">
-            <strong>Fecha de registro:</strong>
-            <span id="user-register-date"></span>
-        </div>
-    </div>
-    <button onclick="showEditForm()">Editar información</button>
+                    <div class="info-row">
+                        <strong>Fecha de registro:</strong>
+                        <span id="user-register-date"></span>
+                    </div>
+                </div>
+                <button onclick="showEditForm()">Editar información</button>
 
-    <div id="edit-user-form" style="display:none;">
-        <h3>Editar información</h3>
-        <form id="updateForm">
-            <label for="edit-name">Nombre Completo:</label>
-            <input type="text" id="edit-name" name="edit-name" minlength="3" maxlength="35" required>
+                <div id="edit-user-form" style="display:none;">
+                    <h3>Editar información</h3>
+                    <form id="updateForm">
+                        <label for="edit-name">Nombre Completo:</label>
+                        <input type="text" id="edit-name" name="edit-name" minlength="3" maxlength="35" required>
 
-            <label for="edit-email">Correo Electrónico:</label>
-            <input type="email" id="edit-email" name="edit-email" maxlength="40" required>
+                        <label for="edit-email">Correo Electrónico:</label>
+                        <input type="email" id="edit-email" name="edit-email" maxlength="40" required>
 
-            <label for="edit-phone">Teléfono:</label>
-            <input type="tel" id="edit-phone" name="edit-phone" maxlength="10" placeholder="Ej: 6561234567"
-                pattern="[0-9]+" title="Solo numeros" required>
+                        <label for="edit-phone">Teléfono:</label>
+                        <input type="tel" id="edit-phone" name="edit-phone" maxlength="10" placeholder="Ej: 6561234567"
+                            pattern="[0-9]+" title="Solo numeros" required>
 
-            <label for="edit-address">Dirección:</label>
-            <input id="edit-address" name="edit-address" rows="3" maxlength="40" placeholder="Tu dirección completa" required>
+                        <label for="edit-address">Dirección:</label>
+                        <input id="edit-address" name="edit-address" rows="3" maxlength="40"
+                            placeholder="Tu dirección completa" required>
 
-            <label for="edit-age">Edad:</label>
-            <input type="number" id="edit-age" name="edit-age" min="18" max="99" placeholder="Tu edad" required>
+                        <label for="edit-age">Edad:</label>
+                        <input type="number" id="edit-age" name="edit-age" min="18" max="99" placeholder="Tu edad"
+                            required>
 
-            <label for="edit-experience">Experiencia con mascotas:</label>
-            <textarea id="edit-experience" name="edit-experience"
-                placeholder="Describe tu experiencia con mascotas (Min 70 letras - Max 300 letras)" 
-                style="width: 25rem; height: 6rem;" minlength="70" maxlength="300" required></textarea>
+                        <label for="edit-experience">Experiencia con mascotas:</label>
+                        <textarea id="edit-experience" name="edit-experience"
+                            placeholder="Describe tu experiencia con mascotas (Min 70 letras - Max 300 letras)"
+                            style="width: 25rem; height: 6rem;" minlength="70" maxlength="300" required></textarea>
 
-            <label for="current-password">Contraseña actual (para confirmar cambios):</label>
-            <input type="password" id="current-password" name="current-password" minlength="8" maxlength="64" required>
+                        <label for="current-password">Contraseña actual (para confirmar cambios):</label>
+                        <input type="password" id="current-password" name="current-password" minlength="8"
+                            maxlength="64" required>
 
-            <label for="new-password">Nueva contraseña (opcional):</label>
-            <input type="password" id="new-password" name="new-password" minlength="8" maxlength="64" 
-                placeholder="Dejar vacío para mantener la actual">
+                        <label for="new-password">Nueva contraseña (opcional):</label>
+                        <input type="password" id="new-password" name="new-password" minlength="8" maxlength="64"
+                            placeholder="Dejar vacío para mantener la actual">
 
-            <label for="confirm-new-password">Confirmar nueva contraseña:</label>
-            <input type="password" id="confirm-new-password" name="confirm-new-password" minlength="8" maxlength="64" 
-                placeholder="Confirmar nueva contraseña">
+                        <label for="confirm-new-password">Confirmar nueva contraseña:</label>
+                        <input type="password" id="confirm-new-password" name="confirm-new-password" minlength="8"
+                            maxlength="64" placeholder="Confirmar nueva contraseña">
 
-            <button type="submit">Guardar cambios</button>
-            <button type="button" onclick="hideEditForm()">Cancelar</button>
-        </form>
-        <p id="update-error-message" class="error-message" style="color: red; margin-top: 10px;"></p>
-        <p id="update-success-message" class="success-message" style="color: green; margin-top: 10px;"></p>
-    </div>
-</div>
+                        <button type="submit">Guardar cambios</button>
+                        <button type="button" onclick="hideEditForm()">Cancelar</button>
+                    </form>
+                    <p id="update-error-message" class="error-message" style="color: red; margin-top: 10px;"></p>
+                    <p id="update-success-message" class="success-message" style="color: green; margin-top: 10px;"></p>
+                </div>
+            </div>
 
             <div id="admin-panel" class="account-section" style="display:none;">
                 <h2>Panel de Administrador</h2>
@@ -264,7 +271,8 @@
 
                             <div id="other-species-container" style="display: none; margin-top: 8px;">
                                 <label for="other-species">Especifica la especie:</label>
-                                <input type="text" id="other-species" name="especie_personalizada" minlength="4" maxlength="40">
+                                <input type="text" id="other-species" name="especie_personalizada" minlength="4"
+                                    maxlength="40">
                             </div>
 
                             <label for="pet-image">Imagen de la mascota:</label>
@@ -289,6 +297,13 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Sección de Solicitudes de Reingreso -->
+            <div id="return-requests" class="account-section">
+                <h2>Solicitudes de Reingreso</h2>
+                <div id="return-requests-list"></div>
+            </div>
+
         </div>
     </main>
     <footer>

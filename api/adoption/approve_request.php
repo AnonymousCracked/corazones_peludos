@@ -7,7 +7,8 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 include_once '../config/conexion.php';
 
 // Función para verificar token (igual que antes)
-function verifyToken($token) {
+function verifyToken($token)
+{
     if (empty($token)) return false;
     try {
         $tokenParts = explode('.', $token);
@@ -32,7 +33,7 @@ try {
     $headers = getallheaders();
     $authHeader = $headers['Authorization'] ?? '';
     $token = (strpos($authHeader, 'Bearer ') === 0) ? substr($authHeader, 7) : '';
-    
+
     $tokenData = verifyToken($token);
     if (!$tokenData) {
         http_response_code(401);
@@ -57,11 +58,11 @@ try {
         $stmt->bind_param("i", $requestId);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         if ($result->num_rows === 0) {
             throw new Exception("Solicitud no encontrada");
         }
-        
+
         $mascotaId = $result->fetch_assoc()['id_mascota'];
 
         // PASO 2: Marcar la solicitud como "aprobada"
@@ -74,8 +75,21 @@ try {
             throw new Exception("No se pudo actualizar la solicitud");
         }
 
-        // PASO 3: Marcar la mascota como "adoptada" (sin asignar dueño)
-        $query = "UPDATE mascotas SET estado = 'adoptada' WHERE id = ?";
+        // PASO 3: Obtener el ID del adoptante de la solicitud
+        $getAdoptanteQuery = "SELECT id_adoptante FROM solicitudes_adopcion WHERE id = ?";
+        $stmt = $conexion->prepare($getAdoptanteQuery);
+        $stmt->bind_param("i", $requestId);
+        $stmt->execute();
+        $adoptanteResult = $stmt->get_result();
+
+        if ($adoptanteResult->num_rows === 0) {
+            throw new Exception("No se encontró el adoptante");
+        }
+
+        $adoptanteId = $adoptanteResult->fetch_assoc()['id_adoptante'];
+
+        // PASO 4: Marcar la mascota como "adoptada" y registrar fecha
+        $query = "UPDATE mascotas SET estado = 'adoptada', fecha_adopcion = NOW() WHERE id = ?";
         $stmt = $conexion->prepare($query);
         $stmt->bind_param("i", $mascotaId);
         $stmt->execute();
@@ -84,23 +98,29 @@ try {
             throw new Exception("No se pudo actualizar la mascota");
         }
 
+        // PASO 5: Insertar en historial de adopciones
+        $historialQuery = "INSERT INTO historial_adopciones (id_mascota, id_adoptante, fecha_adopcion, estado) 
+                   VALUES (?, ?, NOW(), 'activa')";
+        $stmt = $conexion->prepare($historialQuery);
+        $stmt->bind_param("ii", $mascotaId, $adoptanteId);
+        $stmt->execute();
 
-        
+        if ($stmt->affected_rows === 0) {
+            throw new Exception("No se pudo crear el historial de adopción");
+        }
 
         // Confirmar transacción
         $conexion->commit();
 
         echo json_encode([
-            "success" => true, 
+            "success" => true,
             "message" => "✅ Solicitud aprobada. Mascota marcada como adoptada.",
             "mascota_id" => $mascotaId
         ]);
-
     } catch (Exception $e) {
         $conexion->rollback();
         throw $e;
     }
-    
 } catch (Exception $e) {
     error_log("Error en approve_request.php: " . $e->getMessage());
     http_response_code(500);
@@ -108,4 +128,3 @@ try {
 } finally {
     if (isset($conexion)) $conexion->close();
 }
-?>
