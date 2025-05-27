@@ -1,0 +1,484 @@
+/* ========== ESTILOS PARA PÁGINAS DE CONTENIDO ========== */
+
+/* Términos y condiciones */
+#terminos {
+  background-color: white;
+  padding: 40px 20px;
+  margin: 20px auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  text-align: left;
+}
+
+#terminos h2 {
+  font-size: 2rem;
+  color: #ff6f61;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.fecha-actualizacion {
+  font-size: 0.9rem;
+  color: #777;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#terminos h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#terminos h4 {
+  font-size: 1.2rem;
+  color: #555;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+#terminos p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+#terminos ul {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+#terminos ul li {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 5px;
+}
+
+#terminos a {
+  color: #ff6f61;
+  text-decoration: none;
+}
+
+#terminos a:hover {
+  text-decoration: underline;
+}
+
+/* Quiénes somos */
+#quienes-somos {
+  background-color: white;
+  padding: 40px 20px;
+  margin: 20px auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  text-align: left;
+}
+
+#quienes-somos h2 {
+  font-size: 2rem;
+  color: #ff6f61;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.seccion {
+  margin-bottom: 40px;
+}
+
+.seccion h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.seccion p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.equipo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.miembro {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 200px;
+}
+
+.miembro img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.miembro h4 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.miembro p {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* Contacto */
+#contacto {
+  background-color: white;
+  padding: 40px 20px;
+  margin: 20px auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  text-align: left;
+}
+
+#contacto h2 {
+  font-size: 2rem;
+  color: #ff6f61;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Formulario de contacto */
+#formularioContacto {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#formularioContacto label {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+#formularioContacto input,
+#formularioContacto textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+#formularioContacto textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+#formularioContacto button {
+  background-color: #ff6f61;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#formularioContacto button:hover {
+  background-color: #cc2e25;
+}
+
+/* Información de contacto */
+.info-contacto p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.info-contacto a {
+  color: #ff6f61;
+  text-decoration: none;
+}
+
+.info-contacto a:hover {
+  text-decoration: underline;
+}
+
+/* Ubicación */
+#ubicacion {
+  background-color: white;
+  padding: 40px 20px;
+  margin: 20px auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+}
+
+#ubicacion h2 {
+  font-size: 2rem;
+  color: #ff6f61;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#ubicacion h2 i {
+  margin-right: 10px;
+}
+
+.refugios-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.como-llegar {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+.como-llegar h3 {
+  color: #ff6f61;
+  margin-bottom: 15px;
+}
+
+.transporte {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 15px;
+}
+
+.transporte-item {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  min-width: 200px;
+}
+
+.transporte-item i {
+  font-size: 1.5rem;
+  color: #ff6f61;
+  margin-right: 15px;
+}
+
+/* Refugios asociados */
+.colaboracion {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  margin: 30px 0;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.refugios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+  margin: 40px 0;
+}
+
+.refugio-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.refugio-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.refugio-imagen {
+  height: 200px;
+  overflow: hidden;
+}
+
+.refugio-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.refugio-card:hover .refugio-imagen img {
+  transform: scale(1.05);
+}
+
+.refugio-info {
+  padding: 25px;
+}
+
+.refugio-info h3 {
+  font-size: 1.5rem;
+  color: #ff6f61;
+  margin-bottom: 15px;
+}
+
+.refugio-meta {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  color: #555;
+}
+
+.refugio-meta i {
+  width: 25px;
+  color: #ff6f61;
+  margin-right: 10px;
+  text-align: center;
+}
+
+/* Mapas */
+.mapa-container {
+  height: 400px;
+  margin: 50px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mapa-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.mapa {
+  height: 250px;
+  width: 100%;
+}
+
+.mapa iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Botón volver */
+.btn-volver {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #ff5252;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+/* Responsive para contenido */
+@media (max-width: 768px) {
+  #quienes-somos,
+  #contacto,
+  #terminos {
+    padding: 20px;
+  }
+
+  .seccion h3 {
+    font-size: 1.3rem;
+  }
+
+  .seccion p {
+    font-size: 0.9rem;
+  }
+
+  .miembro {
+    width: 150px;
+  }
+
+  .miembro img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .miembro h4 {
+    font-size: 1rem;
+  }
+
+  .miembro p {
+    font-size: 0.8rem;
+  }
+
+  #formularioContacto input,
+  #formularioContacto textarea {
+    font-size: 0.9rem;
+  }
+
+  #formularioContacto button {
+    font-size: 0.9rem;
+  }
+
+  .info-contacto p {
+    font-size: 0.9rem;
+  }
+
+  .refugios-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .transporte-item {
+    min-width: 100%;
+  }
+
+  .mapa-container {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  #quienes-somos,
+  #contacto,
+  #terminos {
+    padding: 15px;
+  }
+
+  .seccion h3 {
+    font-size: 1.2rem;
+  }
+
+  .seccion p {
+    font-size: 0.8rem;
+  }
+
+  .miembro {
+    width: 100%;
+  }
+
+  #formularioContacto input,
+  #formularioContacto textarea {
+    font-size: 0.8rem;
+  }
+
+  #formularioContacto button {
+    font-size: 0.8rem;
+  }
+
+  .info-contacto p {
+    font-size: 0.8rem;
+  }
+
+  .mapa-container {
+    height: 250px;
+  }
+
+  .refugio-info {
+    padding: 20px;
+  }
+}

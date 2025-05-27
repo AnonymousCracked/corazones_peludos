@@ -1,0 +1,281 @@
+/* ========== ESTILOS PARA FORMULARIOS Y AUTENTICACIÓN ========== */
+
+/* Login y registro */
+.login-container,
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: 60vh;
+}
+
+#loginForm,
+#registerForm {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+#loginForm h2,
+#registerForm h2 {
+  text-align: center;
+  color: #ff6f61;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+}
+
+#loginForm label,
+#registerForm label {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
+  font-weight: 500;
+}
+
+#loginForm input[type="email"],
+#loginForm input[type="password"],
+#registerForm input[type="text"],
+#registerForm input[type="email"],
+#registerForm input[type="password"] {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+#loginForm input[type="email"]:focus,
+#loginForm input[type="password"]:focus,
+#registerForm input[type="text"]:focus,
+#registerForm input[type="email"]:focus,
+#registerForm input[type="password"]:focus {
+  border-color: #ff6f61;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 111, 97, 0.1);
+}
+
+#loginForm button[type="submit"],
+#registerForm button[type="submit"] {
+  background-color: #ff6f61;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+#loginForm button[type="submit"]:hover,
+#registerForm button[type="submit"]:hover {
+  background-color: #cc2e25;
+}
+
+/* Mensajes de error y éxito */
+.error-message {
+  color: #f44336;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #ffebee;
+  border: 1px solid #ffcdd2;
+  border-radius: 5px;
+}
+
+.success-message {
+  color: #4caf50;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #e8f5e8;
+  border: 1px solid #c8e6c9;
+  border-radius: 5px;
+}
+
+/* Enlaces */
+.register-link,
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.register-link a,
+.login-link a {
+  color: #ff6f61;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-link a:hover,
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* Botón de inicio */
+.home-button {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 400px;
+  transition: background-color 0.3s ease;
+}
+
+.home-button:hover {
+  background-color: #1976d2;
+}
+
+/* Checkboxes y términos */
+#registerForm label[for="terms"] {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 20px 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+#registerForm input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* Responsive para formularios */
+@media (max-width: 768px) {
+  .register-container,
+  .login-container {
+    padding: 20px 15px;
+    min-height: 50vh;
+  }
+
+  #registerForm,
+  #loginForm {
+    padding: 30px 25px;
+    max-width: 350px;
+  }
+
+  #registerForm input[type="text"],
+  #registerForm input[type="email"],
+  #registerForm input[type="password"],
+  #loginForm input[type="email"],
+  #loginForm input[type="password"] {
+    font-size: 16px; /* Evita zoom en iOS */
+    padding: 12px;
+  }
+
+  #registerForm button[type="submit"],
+  #loginForm button[type="submit"],
+  .home-button {
+    font-size: 1rem;
+    padding: 14px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-container,
+  .login-container {
+    padding: 15px 10px;
+    min-height: 40vh;
+  }
+
+  #registerForm,
+  #loginForm {
+    padding: 25px 20px;
+    max-width: 320px;
+  }
+
+  #registerForm input[type="text"],
+  #registerForm input[type="email"],
+  #registerForm input[type="password"],
+  #loginForm input[type="email"],
+  #loginForm input[type="password"] {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  #registerForm button[type="submit"],
+  #loginForm button[type="submit"],
+  .home-button {
+    font-size: 0.9rem;
+    padding: 12px 18px;
+  }
+
+  .home-button {
+    max-width: 320px;
+  }
+}
+
+/* Mejoras visuales adicionales */
+#loginForm::before,
+#registerForm::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #ff6f61, #ff8a80);
+  border-radius: 2px;
+}
+
+#loginForm,
+#registerForm {
+  position: relative;
+}
+
+/* Estados de validación */
+#loginForm input:valid,
+#registerForm input:valid {
+  border-color: #4caf50;
+}
+
+#loginForm input:invalid:not(:placeholder-shown),
+#registerForm input:invalid:not(:placeholder-shown) {
+  border-color: #f44336;
+}
+
+/* Placeholder styling */
+#loginForm input::placeholder,
+#registerForm input::placeholder {
+  color: #999;
+  opacity: 1;
+}
+
+/* Centrado del contenido cuando no hay mucho espacio */
+@media (max-height: 600px) {
+  .login-container,
+  .register-container {
+    min-height: auto;
+    padding: 20px;
+  }
+}

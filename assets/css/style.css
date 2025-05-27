@@ -1,0 +1,162 @@
+/* ========== ESTILOS BASE Y GLOBALES ========== */
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f8f9fa;
+  color: #333;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ========== HEADER Y NAVEGACIÓN ========== */
+header {
+  background-color: #ff6f61;
+  color: white;
+  padding: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #ff3b30;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+nav a:hover {
+  background-color: #cc2e25;
+}
+
+/* ========== CONTENIDO PRINCIPAL ========== */
+main {
+  padding: 20px;
+  flex: 1;
+}
+
+/* ========== BOTONES GLOBALES ========== */
+.btn {
+  background-color: #ff3b30;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 10px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #cc2e25;
+}
+
+button {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #ff5252;
+}
+
+/* ========== IMÁGENES ========== */
+img.logo {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* ========== FOOTER ========== */
+footer {
+  background-color: #ff6f61;
+  color: white;
+  padding: 15px;
+  margin-top: 20px;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+/* ========== REDES SOCIALES ========== */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.social-links a {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.redes-sociales {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.redes-sociales a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ff6f61;
+  color: white;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.redes-sociales a:hover {
+  background-color: #cc2e25;
+  transform: translateY(-3px);
+}
+
+/* ========== RESPONSIVE BASE ========== */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  main {
+    padding: 15px;
+  }
+  
+  .btn {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+}

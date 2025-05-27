@@ -1,0 +1,959 @@
+/* ========== ESTILOS ESPECÍFICOS PARA ADMIN-DASHBOARD.HTML ========== */
+
+/* Container principal de cuenta para admin */
+.account-container {
+  display: flex;
+  max-width: 900px;
+  margin: 20px auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  min-height: 500px;
+}
+
+.account-menu {
+  width: 250px;
+  min-width: 250px;
+  background: #ff6b6b;
+  padding: 20px 0;
+  flex-shrink: 0;
+}
+
+.account-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.account-menu li a {
+  display: block;
+  padding: 12px 20px;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.account-menu li a:hover {
+  background: #ff8e8e;
+}
+
+.account-menu li a.active {
+  background: #ff5252;
+  border-left: 4px solid white;
+}
+
+.account-content {
+  flex: 1;
+  padding: 30px;
+  overflow-x: auto;
+  min-width: 0;
+}
+
+.account-section {
+  display: none;
+}
+
+.account-section h2 {
+  color: #ff6b6b;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ff6b6b;
+  padding-bottom: 10px;
+}
+
+/* Información del usuario */
+.user-details {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.user-details p {
+  margin: 15px 0;
+  font-size: 16px;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.user-details strong {
+  color: #555;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.user-details span {
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  max-width: 100%;
+  padding: 8px 12px;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  font-family: inherit;
+}
+
+.user-details .long-text {
+  max-height: 120px;
+  overflow-y: auto;
+  padding: 12px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.user-details .info-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 15px;
+  align-items: start;
+  margin: 12px 0;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.user-details .info-row:last-child {
+  border-bottom: none;
+}
+
+.user-details .info-row strong {
+  margin-bottom: 0;
+}
+
+.user-details .info-row span {
+  margin: 0;
+}
+
+/* Formulario de edición */
+#edit-user-form {
+  background: #f0f8ff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+#edit-user-form h3 {
+  color: #ff6b6b;
+  margin-bottom: 15px;
+}
+
+#edit-user-form label {
+  display: block;
+  margin: 10px 0 5px;
+  color: #555;
+  font-weight: 500;
+}
+
+#edit-user-form input,
+#edit-user-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+#edit-user-form input:focus,
+#edit-user-form textarea:focus {
+  border-color: #ff6b6b;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.1);
+}
+
+#edit-user-form button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#edit-user-form button[type="submit"] {
+  background: #ff6b6b;
+  color: white;
+}
+
+#edit-user-form button[type="submit"]:hover {
+  background: #ff5252;
+}
+
+#edit-user-form button[type="button"] {
+  background: #6c757d;
+  color: white;
+}
+
+#edit-user-form button[type="button"]:hover {
+  background: #5a6268;
+}
+
+/* Mensajes de error y éxito */
+.error-message {
+  color: #f44336;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #ffebee;
+  border: 1px solid #ffcdd2;
+  border-radius: 5px;
+}
+
+.success-message {
+  color: #4caf50;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #e8f5e8;
+  border: 1px solid #c8e6c9;
+  border-radius: 5px;
+}
+
+/* Secciones principales del admin */
+.admin-section {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.admin-section h3 {
+  color: #ff6f61;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ff6f61;
+  padding-bottom: 10px;
+}
+
+/* Subsecciones del admin */
+.admin-subsection {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-left: 4px solid #ff6f61;
+}
+
+.admin-subsection h4 {
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+/* Formularios del admin */
+.admin-subsection form {
+  display: grid;
+  gap: 15px;
+  max-width: 600px;
+}
+
+.admin-subsection label {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.admin-subsection input,
+.admin-subsection select,
+.admin-subsection textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.admin-subsection input:focus,
+.admin-subsection select:focus,
+.admin-subsection textarea:focus {
+  border-color: #ff6f61;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 111, 97, 0.3);
+}
+
+/* Botones del admin */
+.admin-subsection button {
+  background-color: #ff6f61;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s;
+  justify-self: start;
+}
+
+.admin-subsection button:hover {
+  background-color: #cc2e25;
+  transform: translateY(-2px);
+}
+
+/* Lista de mascotas */
+#pets-list {
+  display: grid;
+  gap: 20px;
+}
+
+.pet-item {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #ff6f61;
+  transition: transform 0.3s;
+}
+
+.pet-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.pet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.pet-details {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.pet-image-container img {
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.pet-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.pet-info p {
+  margin: 5px 0;
+  font-size: 0.95rem;
+}
+
+.pet-info strong {
+  color: #333;
+}
+
+.pet-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.pet-actions button {
+  background-color: #ff6f61;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+.pet-actions button:hover {
+  background-color: #cc2e25;
+}
+
+.pet-actions .btn-edit {
+  background: #2196f3;
+}
+
+.pet-actions .btn-edit:hover {
+  background: #1976d2;
+}
+
+.pet-actions .btn-delete {
+  background: #f44336;
+}
+
+.pet-actions .btn-delete:hover {
+  background: #d32f2f;
+}
+
+/* Solicitudes de adopción */
+#adoption-requests-admin {
+  display: grid;
+  gap: 20px;
+}
+
+.adoption-request {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #ffc107;
+  transition: transform 0.3s;
+}
+
+.adoption-request:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.request-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.request-info p {
+  margin: 5px 0;
+  font-size: 0.95rem;
+  word-wrap: break-word;
+}
+
+.request-info strong {
+  color: #333;
+}
+
+.request-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.request-actions button:first-child {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+.request-actions button:first-child:hover {
+  background-color: #218838;
+}
+
+.request-actions button:last-child {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+.request-actions button:last-child:hover {
+  background-color: #c82333;
+}
+
+/* Modal de edición */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  transition: all 0.3s ease;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 25px;
+  border: none;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.close {
+  color: #aaa;
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close:hover,
+.close:focus {
+  color: #333;
+  text-decoration: none;
+}
+
+.modal h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  font-size: 1.5rem;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+#edit-pet-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+#edit-pet-form label {
+  font-weight: 600;
+  color: #34495e;
+  margin-bottom: 5px;
+  display: block;
+}
+
+#edit-pet-form input[type="text"],
+#edit-pet-form input[type="number"],
+#edit-pet-form select,
+#edit-pet-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9;
+}
+
+#edit-pet-form input[type="text"]:focus,
+#edit-pet-form input[type="number"]:focus,
+#edit-pet-form select:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  outline: none;
+  background-color: #fff;
+}
+
+#edit-pet-form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+#edit-image-preview,
+#image-preview {
+  margin: 15px 0;
+  text-align: center;
+}
+
+#edit-preview-img,
+#preview-img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-buttons button[type="button"] {
+  background-color: #f1f1f1;
+  color: #333;
+}
+
+.modal-buttons button[type="button"]:hover {
+  background-color: #e0e0e0;
+}
+
+.modal-buttons button[type="submit"] {
+  background-color: #3498db;
+  color: white;
+}
+
+.modal-buttons button[type="submit"]:hover {
+  background-color: #2980b9;
+}
+
+/* Vista previa de imagen */
+.admin-subsection input[type="file"] {
+  padding: 8px;
+  border: 2px dashed #ff6f61;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.admin-subsection input[type="file"]:hover {
+  border-color: #cc2e25;
+  background-color: #fff;
+}
+
+/* Estados especiales */
+.pet-item[data-status="adoptado"] {
+  border-left-color: #28a745;
+  opacity: 0.8;
+}
+
+.pet-item[data-status="adoptado"] .pet-info::before {
+  content: "✓ ADOPTADO";
+  background-color: #28a745;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Mensajes de estado */
+#add-pet-message {
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Estados de carga */
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-style: italic;
+}
+
+.loading::after {
+  content: "...";
+  animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+  0%, 20% {
+    content: "...";
+  }
+  40% {
+    content: "..";
+  }
+  60% {
+    content: ".";
+  }
+  80%, 100% {
+    content: "";
+  }
+}
+
+/* Animaciones */
+.pet-item,
+.adoption-request,
+.admin-subsection {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Filtros para solicitudes de adopción */
+.filters-container {
+  background: #f5f5f5;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border: 1px solid #ddd;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.filter-buttons button {
+  background: #2196f3;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.filter-buttons button:hover {
+  opacity: 0.8;
+}
+
+.filter-buttons button.active {
+  background: #ff6f61;
+  font-weight: bold;
+}
+
+#filter-status {
+  margin: 10px 0 0 0;
+  font-style: italic;
+  color: #666;
+}
+
+/* Campos de especie personalizada */
+#other-species-container,
+#edit-other-species-container {
+  display: none;
+  margin-top: 8px;
+}
+
+#other-species,
+#edit-other-species {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+/* Efecto hover para el modal */
+.modal-content:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive para admin */
+@media (max-width: 768px) {
+  .account-container {
+    flex-direction: column;
+    margin: 10px;
+  }
+
+  .account-menu {
+    width: 100%;
+    min-width: 100%;
+    order: 1;
+  }
+
+  .account-content {
+    order: 2;
+    padding: 20px;
+  }
+
+  .user-details .info-row {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .user-details p {
+    flex-direction: column;
+  }
+
+  #edit-user-form {
+    padding: 15px;
+  }
+
+  #edit-user-form input,
+  #edit-user-form textarea {
+    font-size: 16px; /* Evita zoom en iOS */
+  }
+
+  .admin-section {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .admin-subsection {
+    padding: 15px;
+  }
+
+  .pet-details {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .pet-actions,
+  .request-actions {
+    flex-direction: column;
+  }
+
+  .pet-actions button,
+  .request-actions button {
+    width: 100%;
+  }
+
+  .modal-content {
+    width: 95%;
+    margin: 10% auto;
+    padding: 15px;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+  }
+
+  .modal-buttons button {
+    width: 100%;
+  }
+
+  .filter-buttons {
+    flex-direction: column;
+  }
+
+  .filter-buttons button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .account-content {
+    padding: 15px;
+  }
+
+  .user-details {
+    padding: 15px;
+  }
+
+  .user-details span {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  #edit-user-form {
+    padding: 12px;
+  }
+
+  #edit-user-form input,
+  #edit-user-form textarea {
+    padding: 8px;
+    font-size: 16px;
+  }
+
+  #edit-user-form button {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .admin-section {
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+
+  .admin-subsection {
+    padding: 12px;
+  }
+
+  .admin-section h3 {
+    font-size: 1.3rem;
+  }
+
+  .admin-subsection h4 {
+    font-size: 1.1rem;
+  }
+
+  .pet-item,
+  .adoption-request {
+    padding: 15px;
+  }
+
+  .admin-subsection form {
+    gap: 12px;
+  }
+
+  .admin-subsection input,
+  .admin-subsection select {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .admin-subsection button {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Estilos adicionales para mejorar la experiencia */
+.admin-section:not(:last-child) {
+  border-bottom: 1px solid #eee;
+}
+
+/* Estados especiales de las cards */
+.pet-item.processing {
+  border-left-color: #ff9800;
+}
+
+.pet-item.available {
+  border-left-color: #4caf50;
+}
+
+/* Mejoras para formularios de admin */
+.admin-subsection form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.admin-subsection form .form-row.full-width {
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 768px) {
+  .admin-subsection form .form-row {
+    grid-template-columns: 1fr;
+  }
+}
