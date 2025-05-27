@@ -464,3 +464,92 @@
     font-size: 0.8rem;
   }
 }
+
+/* ========== MODAL DE REINGRESO ========== */
+/* Modal principal */
+#return-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Contenido del modal */
+#return-modal > div {
+  background: white;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 500px;
+}
+
+/* Botón de cerrar (X) */
+#return-modal span {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#return-modal span:hover,
+#return-modal span:focus {
+  color: #333;
+  text-decoration: none;
+}
+
+/* Campos del formulario */
+#return-form select {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+}
+
+#return-form textarea {
+  width: 100%;
+  padding: 8px;
+}
+
+/* Alerta de multa */
+#return-form .multa-alert {
+  background: #fff3cd;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+/* Botones del formulario */
+#return-form button[type="submit"] {
+  background: #dc3545;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+#return-form button[type="button"] {
+  background: #6c757d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+#return-form button {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#return-form button[type="submit"]:hover {
+  background: #c82333;
+}
+
+#return-form button[type="button"]:hover {
+  background: #5a6268;
+}

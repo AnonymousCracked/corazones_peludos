@@ -146,17 +146,14 @@
                 <div id="adopted-pets-container"></div>
 
                 <!-- Modal para reingreso -->
-                <div id="return-modal"
-                    style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5);">
-                    <div
-                        style="background:white; margin:10% auto; padding:20px; border-radius:10px; width:80%; max-width:500px;">
-                        <span onclick="closeReturnModal()"
-                            style="color:#aaa; float:right; font-size:28px; font-weight:bold; cursor:pointer;">&times;</span>
+                <div id="return-modal">
+                    <div>
+                        <span onclick="closeReturnModal()">&times;</span>
                         <h3>Solicitar Reingreso</h3>
                         <form id="return-form">
                             <input type="hidden" id="historial-id">
                             <label>Motivo:</label>
-                            <select id="return-reason" required style="width:100%; padding:8px; margin:5px 0;">
+                            <select id="return-reason" required>
                                 <option value="">Selecciona un motivo</option>
                                 <option value="falta_espacio">Falta de espacio</option>
                                 <option value="problemas_salud">Problemas de salud</option>
@@ -164,14 +161,12 @@
                                 <option value="otro">Otro</option>
                             </select>
                             <label>Detalles:</label>
-                            <textarea id="return-details" required rows="4" style="width:100%; padding:8px;"></textarea>
-                            <div style="background:#fff3cd; padding:10px; margin:10px 0; border-radius:5px;">
+                            <textarea id="return-details" required rows="4"></textarea>
+                            <div class="multa-alert">
                                 <strong>⚠️ Multa: $500.00 MXN</strong>
                             </div>
-                            <button type="submit"
-                                style="background:#dc3545; color:white; padding:10px 20px; border:none; border-radius:5px;">Solicitar</button>
-                            <button type="button" onclick="closeReturnModal()"
-                                style="background:#6c757d; color:white; padding:10px 20px; border:none; border-radius:5px; margin-left:10px;">Cancelar</button>
+                            <button type="submit">Solicitar</button>
+                            <button type="button" onclick="closeReturnModal()">Cancelar</button>
                         </form>
                     </div>
                 </div>
