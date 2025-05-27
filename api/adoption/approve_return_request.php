@@ -67,7 +67,7 @@ try {
         $stmt->execute();
 
         // Marcar mascota como disponible
-        $updateMascota = "UPDATE mascotas SET estado = 'disponible' WHERE id = ?";
+        $updateMascota = "UPDATE mascotas SET estado = 'disponible', fecha_adopcion = NULL WHERE id = ?";
         $stmt = $conexion->prepare($updateMascota);
         $stmt->bind_param("i", $data['id_mascota']);
         $stmt->execute();

@@ -415,11 +415,11 @@ function verifyAuth() {
     return true;
 }
 
-// Función para aprobar solicitud (VERSIÓN FINAL CORREGIDA)
+// Función para aprobar solicitud
 async function approveRequest(requestId, petId) {
     if (!verifyAuth()) return;
 
-    if (!confirm('¿Estás seguro de que deseas aprobar esta solicitud?\n\n⚠️ ATENCIÓN: La mascota será ELIMINADA definitivamente del sistema.')) return;
+    if (!confirm('¿Estás seguro de que deseas aprobar esta solicitud?\n\n⚠️ ATENCIÓN: La mascota no podra ser adoptada denuevo a menos de que se reingrese.')) return;
 
     try {
         console.log(`Aprobando solicitud ${requestId} para mascota ${petId}`);
@@ -444,7 +444,7 @@ async function approveRequest(requestId, petId) {
 
             showToast(
                 '¡Solicitud Aprobada!',
-                `La solicitud #${requestId} ha sido aprobada correctamente y la mascota ha sido eliminada del sistema.`,
+                `La solicitud #${requestId} ha sido aprobada correctamente y la mascota se le entregara a su dueño.`,
                 'success',
                 6000
             );
