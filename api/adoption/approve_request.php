@@ -6,7 +6,7 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 include_once '../config/conexion.php';
 
-// Función para verificar token (igual que antes)
+// Función para verificar token
 function verifyToken($token)
 {
     if (empty($token)) return false;

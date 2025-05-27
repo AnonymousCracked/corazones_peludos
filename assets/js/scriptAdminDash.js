@@ -980,7 +980,7 @@ function toggleEditOtherSpecies() {
 
 // === GESTIÓN DE RECHAZOS CON MOTIVO ===
 
-// Función actualizada para mostrar solicitudes de reingreso
+// Función para mostrar solicitudes de reingreso
 async function loadReturnRequests() {
     try {
         const response = await fetch('../api/adoption/get_return_requests.php', {
@@ -1033,7 +1033,7 @@ async function loadReturnRequests() {
     }
 }
 
-// Función para aprobar directamente (sin modal)
+// Función para aprobar directamente
 async function approveReturnRequest(solicitudId) {
     if (!confirm('¿Estás seguro de aprobar esta solicitud de reingreso?')) return;
     
@@ -1182,7 +1182,6 @@ async function processReturn(solicitudId, action) {
     }
 }
 
-// Modificar showSection existente para incluir solicitudes de reingreso
 const _originalShowSectionAdmin = window.showSection;
 window.showSection = function(sectionId) {
     if (_originalShowSectionAdmin) {
