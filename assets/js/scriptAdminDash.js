@@ -1008,7 +1008,7 @@ async function loadReturnRequests() {
                 </div>
                 <div style="background:#f8f9fa; padding:10px; border-radius:4px; margin:10px 0;">
                     <strong>Motivo:</strong><br>
-                    <em>${req.motivo_reingreso}</em>
+                    <em style="word-wrap: break-word">${req.motivo_reingreso}</em>
                 </div>
                 ${req.estado === 'pendiente' ? `
                     <div style="text-align:right; margin-top:15px;">

@@ -465,6 +465,309 @@
   }
 }
 
+/* ========== SECCIÓN DE MASCOTAS ADOPTADAS MEJORADA ========== */
+
+/* Contenedor principal de mascotas adoptadas */
+#adopted-pets-container {
+  margin-top: 25px;
+}
+
+/* Grid de mascotas adoptadas */
+.adopted-pets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 25px;
+  margin: 25px 0;
+}
+
+/* Tarjeta de mascota adoptada */
+.adopted-pet-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 2px solid #e9ecef;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.adopted-pet-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #4caf50 0%, #66bb6a 100%);
+}
+
+.adopted-pet-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  border-color: #4caf50;
+}
+
+/* Header de la tarjeta */
+.adopted-pet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+
+/* Información de la mascota */
+.adopted-pet-info {
+  flex: 1;
+}
+
+.adopted-pet-info h4 {
+  color: #2c3e50;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.adopted-pet-info h4::before {
+  content: '🐾';
+  font-size: 1.2rem;
+}
+
+/* Detalles de la mascota */
+.pet-details-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.pet-detail-item {
+  background: #f8f9fa;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border-left: 3px solid #4caf50;
+  font-size: 14px;
+  flex: 1;
+  min-width: 120px;
+}
+
+.pet-detail-item strong {
+  color: #2c3e50;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.pet-detail-item span {
+  color: #6c757d;
+  font-weight: 500;
+}
+
+/* Fecha de adopción destacada */
+.adoption-date {
+  background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+  border: 2px solid #4caf50;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: 15px 0;
+  text-align: center;
+}
+
+.adoption-date strong {
+  color: #2e7d32;
+  font-weight: 700;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.adoption-date strong::before {
+  content: '📅';
+  font-size: 1.1rem;
+}
+
+/* Botón de devolver */
+.return-button {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+  position: relative;
+  overflow: hidden;
+  min-width: 100px;
+}
+
+.return-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.return-button:hover::before {
+  left: 100%;
+}
+
+.return-button:hover {
+  background: linear-gradient(135deg, #c82333 0%, #a71e2a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(220, 53, 69, 0.4);
+}
+
+.return-button:active {
+  transform: translateY(0);
+}
+
+/* Estado de solicitud pendiente */
+.pending-status {
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  color: #856404;
+  border: 2px solid #ffc107;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 3px 8px rgba(255, 193, 7, 0.2);
+  position: relative;
+}
+
+.pending-status::before {
+  content: '⏳';
+  margin-right: 8px;
+  font-size: 1rem;
+}
+
+/* Mensaje cuando no hay mascotas */
+.no-pets-message {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 16px;
+  border: 2px dashed #dee2e6;
+  margin: 30px 0;
+}
+
+.no-pets-message::before {
+  content: '🐕';
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+.no-pets-message p {
+  color: #6c757d;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Loading state */
+.loading-adopted-pets {
+  text-align: center;
+  padding: 40px;
+  color: #6c757d;
+  font-style: italic;
+  background: #f8f9fa;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.loading-adopted-pets::after {
+  content: "...";
+  animation: loadingDots 1.5s infinite;
+}
+
+@keyframes loadingDots {
+  0%, 20% {
+    content: "...";
+  }
+  40% {
+    content: "..";
+  }
+  60% {
+    content: ".";
+  }
+  80%, 100% {
+    content: "";
+  }
+}
+
+/* Responsive para mascotas adoptadas */
+@media (max-width: 768px) {
+  .adopted-pets-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .adopted-pet-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+
+  .pet-details-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pet-detail-item {
+    min-width: 100%;
+  }
+
+  .return-button,
+  .pending-status {
+    width: 100%;
+    text-align: center;
+  }
+
+  .no-pets-message {
+    padding: 40px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .adopted-pet-card {
+    padding: 20px 15px;
+  }
+
+  .adopted-pet-info h4 {
+    font-size: 1.2rem;
+  }
+
+  .pet-detail-item {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  .adoption-date {
+    padding: 10px 12px;
+  }
+
+  .return-button,
+  .pending-status {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}
+
 /* ========== MODAL DE REINGRESO ========== */
 /* Modal principal */
 #return-modal {
@@ -475,81 +778,284 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Contenido del modal */
 #return-modal > div {
   background: white;
-  margin: 10% auto;
-  padding: 20px;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 500px;
+  margin: 8% auto;
+  padding: 30px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 550px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  position: relative;
+  animation: slideIn 0.3s ease-out;
+  border: 1px solid #e0e0e0;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-30px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Título del modal */
+#return-modal h3 {
+  color: #dc3545;
+  margin: 0 0 25px 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-align: center;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #dc3545;
+  margin-right: 40px;
 }
 
 /* Botón de cerrar (X) */
 #return-modal span {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
+  color: #999;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 32px;
   font-weight: bold;
   cursor: pointer;
+  transition: all 0.2s ease;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f8f9fa;
 }
 
 #return-modal span:hover,
 #return-modal span:focus {
+  color: #dc3545;
+  background: #fee;
+  transform: scale(1.1);
+}
+
+/* Formulario */
+#return-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Labels */
+#return-form label {
+  font-weight: 600;
   color: #333;
-  text-decoration: none;
+  margin-bottom: 8px;
+  display: block;
+  font-size: 15px;
 }
 
 /* Campos del formulario */
 #return-form select {
   width: 100%;
-  padding: 8px;
-  margin: 5px 0;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  background: white;
+  transition: all 0.3s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+#return-form select:focus {
+  outline: none;
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
 }
 
 #return-form textarea {
   width: 100%;
-  padding: 8px;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 120px;
+  transition: all 0.3s ease;
+  line-height: 1.5;
 }
 
-/* Alerta de multa */
+#return-form textarea:focus {
+  outline: none;
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+#return-form textarea::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+/* Alerta de multa mejorada */
 #return-form .multa-alert {
-  background: #fff3cd;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  border: 2px solid #ffc107;
+  border-left: 6px solid #ff8f00;
+  padding: 16px 20px;
+  margin: 20px 0;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
+}
+
+#return-form .multa-alert strong {
+  color: #856404;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Contenedor de botones */
+.modal-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
 }
 
 /* Botones del formulario */
-#return-form button[type="submit"] {
-  background: #dc3545;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-}
-
-#return-form button[type="button"] {
-  background: #6c757d;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  margin-left: 10px;
-}
-
 #return-form button {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  min-width: 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+#return-form button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+#return-form button:hover:before {
+  left: 100%;
+}
+
+#return-form button[type="submit"] {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
 }
 
 #return-form button[type="submit"]:hover {
-  background: #c82333;
+  background: linear-gradient(135deg, #c82333 0%, #a71e2a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(220, 53, 69, 0.4);
+}
+
+#return-form button[type="button"] {
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
 }
 
 #return-form button[type="button"]:hover {
-  background: #5a6268;
+  background: linear-gradient(135deg, #5a6268 0%, #454d55 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(108, 117, 125, 0.4);
+}
+
+#return-form button:active {
+  transform: translateY(0);
+}
+
+/* Responsive para el modal */
+@media (max-width: 768px) {
+  #return-modal > div {
+    width: 95%;
+    margin: 4% auto;
+    padding: 25px 20px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  #return-modal h3 {
+    font-size: 1.4rem;
+    margin-right: 30px;
+  }
+
+  #return-modal span {
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #return-form button {
+    width: 100%;
+    padding: 14px 20px;
+  }
+
+  #return-form .multa-alert {
+    padding: 14px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  #return-modal > div {
+    padding: 20px 15px;
+  }
+
+  #return-form select,
+  #return-form textarea {
+    padding: 10px 12px;
+    font-size: 16px; /* Evita zoom en iOS */
+  }
+
+  #return-form textarea {
+    min-height: 100px;
+  }
 }

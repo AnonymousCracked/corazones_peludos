@@ -143,16 +143,21 @@
             <!-- Sección de Mascotas Adoptadas -->
             <div id="adopted-pets" class="account-section">
                 <h2>Mis Mascotas Adoptadas</h2>
-                <div id="adopted-pets-container"></div>
 
-                <!-- Modal para reingreso -->
+                <!-- Contenedor que se llenará dinámicamente -->
+                <div id="adopted-pets-container">
+                    
+                </div>
+
+                <!-- Modal para reingreso (ya mejorado anteriormente) -->
                 <div id="return-modal">
                     <div>
                         <span onclick="closeReturnModal()">&times;</span>
                         <h3>Solicitar Reingreso</h3>
                         <form id="return-form">
                             <input type="hidden" id="historial-id">
-                            <label>Motivo:</label>
+
+                            <label for="return-reason">Motivo:</label>
                             <select id="return-reason" required>
                                 <option value="">Selecciona un motivo</option>
                                 <option value="falta_espacio">Falta de espacio</option>
@@ -160,13 +165,19 @@
                                 <option value="cambio_familiar">Cambio familiar</option>
                                 <option value="otro">Otro</option>
                             </select>
-                            <label>Detalles:</label>
-                            <textarea id="return-details" required rows="4"></textarea>
+
+                            <label for="return-details">Detalles:</label>
+                            <textarea id="return-details" minlength="20" maxlength="300" required rows="4"
+                                placeholder="Describe detalladamente la situación que te lleva a solicitar el reingreso..."></textarea>
+
                             <div class="multa-alert">
                                 <strong>⚠️ Multa: $500.00 MXN</strong>
                             </div>
-                            <button type="submit">Solicitar</button>
-                            <button type="button" onclick="closeReturnModal()">Cancelar</button>
+
+                            <div class="modal-buttons">
+                                <button type="button" onclick="closeReturnModal()">Cancelar</button>
+                                <button type="submit">Solicitar Reingreso</button>
+                            </div>
                         </form>
                     </div>
                 </div>

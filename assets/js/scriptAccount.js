@@ -674,30 +674,63 @@ async function loadAdoptedPets() {
         const container = document.getElementById('adopted-pets-container');
 
         if (pets.length === 0) {
-            container.innerHTML = '<p style="text-align:center; padding:40px;">No tienes mascotas adoptadas.</p>';
+            container.innerHTML = `
+                <div class="no-pets-message">
+                    <p>No tienes mascotas adoptadas.</p>
+                </div>
+            `;
             return;
         }
 
-        container.innerHTML = pets.map(pet => `
-            <div style="border:1px solid #ddd; padding:15px; margin:10px 0; border-radius:8px; background:white;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div>
+        // Crear el grid de mascotas adoptadas
+        const petsGrid = document.createElement('div');
+        petsGrid.className = 'adopted-pets-grid';
+
+        container.innerHTML = '';
+        
+        pets.forEach(pet => {
+            const petCard = document.createElement('div');
+            petCard.className = 'adopted-pet-card';
+            
+            petCard.innerHTML = `
+                <div class="adopted-pet-header">
+                    <div class="adopted-pet-info">
                         <h4>${pet.nombre}</h4>
-                        <p><strong>Raza:</strong> ${pet.raza} | <strong>Edad:</strong> ${pet.edad} años</p>
-                        <p><strong>Adoptado:</strong> ${new Date(pet.fecha_adopcion).toLocaleDateString()}</p>
+                        <div class="pet-details-row">
+                            <div class="pet-detail-item">
+                                <strong>Raza:</strong>
+                                <span>${pet.raza}</span>
+                            </div>
+                            <div class="pet-detail-item">
+                                <strong>Edad:</strong>
+                                <span>${pet.edad} ${pet.edad === 1 ? 'año' : 'años'}</span>
+                            </div>
+                        </div>
+                        <div class="adoption-date">
+                            <strong>Adoptado: ${new Date(pet.fecha_adopcion).toLocaleDateString()}</strong>
+                        </div>
                     </div>
-                    <div>
+                    <div class="pet-actions">
                         ${!pet.tiene_solicitud_pendiente ?
-                `<button onclick="openReturnModal(${pet.historial_id}, '${pet.nombre}')" style="background:#dc3545; color:white; padding:8px 15px; border:none; border-radius:4px; cursor:pointer;">Devolver</button>` :
-                `<span style="color:#856404; background:#fff3cd; padding:5px 10px; border-radius:4px;">Solicitud pendiente</span>`
-            }
+                            `<button class="return-button" onclick="openReturnModal(${pet.historial_id}, '${pet.nombre}')">Devolver</button>` :
+                            `<div class="pending-status">Solicitud pendiente</div>`
+                        }
                     </div>
                 </div>
-            </div>
-        `).join('');
+            `;
+            
+            petsGrid.appendChild(petCard);
+        });
+
+        container.appendChild(petsGrid);
+        
     } catch (error) {
         console.error('Error:', error);
-        document.getElementById('adopted-pets-container').innerHTML = '<p style="color:red;">Error al cargar mascotas</p>';
+        document.getElementById('adopted-pets-container').innerHTML = `
+            <div class="no-pets-message">
+                <p style="color: red;">Error al cargar mascotas</p>
+            </div>
+        `;
     }
 }
 
